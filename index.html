@@ -26,7 +26,7 @@
 <body onload="getAges()">
     <div style="display:  flex;justify-content: space-between;align-items: flex-start;flex-direction: row;">
         <div>
-            to meta-data file: <input type="text" id="rawdata"
+            Link to meta-data file: <input type="text" id="rawdata"
                 value=""
                 maxlength="200" />
             <button id="getData" onclick="getData()">Get Data</button>
@@ -34,6 +34,7 @@
             Select building from list: <select id="Buildings">
             </select>
         </div>
+        <a href="help.html">HELP ME</a>
         <div id="filter">
             <input id="filterTypeCB" type="checkbox" onchange="getData()" />Filter for Type:
             <select id="filterType" onchange="getData()">

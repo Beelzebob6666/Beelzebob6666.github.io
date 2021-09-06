@@ -6,7 +6,7 @@ function findImages(Building) {
     if (wikiname.search("Lv.") >= 0) {
         var x = wikiname.search("-_");
         if (x <= 7 && x >= 0) {
-            wikiname = wikiname.substr(x + 2) + " Lvl " + wikiname.substr(4, x - 5);
+            wikiname = wikiname.substr(x + 2) + "_Lvl_" + wikiname.substr(4, x - 5);
         }
     }
     wikiname += ".png"
@@ -96,6 +96,7 @@ function download() {
 
         });
     }
+    clearDownload();
 }
 
 
