@@ -17,9 +17,9 @@ function dataToWiki(Building) {
   Wikitext = multiageWiki.tableDef;
   for (let i = 0; i < Building.header.length; i++) {
     if (i === 0) {
-      Wikitext += String.fromCharCode(13) + multiageWiki.styleFirstCol + Building.header[i]
+      Wikitext += String.fromCharCode(13) + multiageWiki["styleFirstRow"] + Building.header[i]
     } else {
-      Wikitext += String.fromCharCode(13) + multiageWiki.styleFirstCol + Building.header[i];
+      Wikitext += String.fromCharCode(13) + multiageWiki["styleRow"] + Building.header[i];
     }
   }
 
