@@ -20,7 +20,7 @@ const ages = {
     "SpaceAgeVenus": "'''SAV'''",
 }
 
-const headerextra = {
+const headerExtra = {
     "Set 1": "1<sup>st</sup> Bonus",
     "Set 2": "2<sup>nd</sup> Bonus",
     "Set 3": "3<sup>rd</sup> Bonus",
@@ -37,11 +37,14 @@ const headerextra = {
 }
 
 
-const prodheaders = {
+const prodHeaders = {                       //translates production options to wiki code (table heads), determines the order of listing of the options in the output-tabel
+    "age": "{{IAGE}}",
+    "provided_population": "{{IPOP}}",
+    "provided_happiness": "{{IHAP}}",
+    "hapeff": "{{IHAP}}/{{ISIZ}}",
     "money": "{{ICOI}}",
     "supplies": "{{ISUP}}",
     "medals": "{{IMED}}",
-    "clan_power": "{{Power}}",
     "random_good_of_age": "{{Goods}}",
     "random_good_of_age_1": "{{Goods}}",
     "random_good_of_age_2": "{{Goods}}",
@@ -51,27 +54,25 @@ const prodheaders = {
     "good": "{{Goods}}",
     "era_goods": "{{Goods}}",
     "all_goods_of_age": "{{Goods}}",
-    "Goods_Sum": "{{Goods}}",           // Goods_Sum has to be the last item that translates to {{Goods}} 
+    "Goods_Sum": "{{Goods}}",           // Goods_Sum has to be the last item that translates to {{Goods}}
                                         //and defines the position of gooods in the resulting table
                                         //Goods_Sum may not occur in the categoryGoods variable below!!!
-    "clan_goods": "{{GUIG}}",
     "strategy_points": "{{FP}}",
+    "points": "{{Prestige}}",
     "premium": "{{IDIA}}",
+    "happiness_amount": "{{IHAP}}",
+    "produced_money": "{{ICOI}}",
+    "clan_power": "{{Power}}",
+    "clan_goods": "{{GUIG}}",
+    "BP-Production": "{{BP}}",
+    "Unit-Production" : "{{IMU}}"
     "att_boost_attacker": "{{IATT}}",
     "def_boost_defender": "{{DEF}}",
     "att_boost_defender": "{{DATT}}",
     "def_boost_attacker": "{{ADEF}}",
     "coin_production": "{{ICOI}} Boost",
     "supply_production": "{{ISUP}} Boost",
-    "Unit-Production": "{{IMU}}",
-    "BP-Production": "{{BP}}",
-    "provided_population": "{{IPOP}}",
-    "provided_happiness": "{{IHAP}}",
-    "happiness_amount": "{{IHAP}}",
-    "produced_money": "{{ICOI}}",
-    "points": "{{Prestige}}",
-    "hapeff": "{{IHAP}}/{{ISIZ}}",
-    "age": "{{IAGE}}"
+    
 }
 
 const categoryGoods = [
@@ -83,10 +84,10 @@ const categoryGoods = [
     "goods",
     "good",
     "era_goods",
-    "all_goods_of_age",  
+    "all_goods_of_age",
 ]
 
-const categoryBoosts = [   
+const categoryBoosts = [
     "att_boost_attacker",
     "def_boost_defender",
     "att_boost_defender",
@@ -94,3 +95,9 @@ const categoryBoosts = [
     "coin_production",
     "supply_production",
 ]
+
+const multiageWiki = {
+    "tableDef":'{| class="FoETable AgeTable ProdTable"',
+    "styleFirstRow" : '!  style="width:50px; | ',
+    "styleRow" : '!  style="width:70px; | ',
+}

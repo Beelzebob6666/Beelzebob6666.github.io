@@ -7,7 +7,7 @@ function convertOld(Building) {
     Building.AgeData = [];
     Building.header = [];
 
-    const AbilityIndex = {                          //determines the order in which the abilities are parsed
+    const AbilityIndex = {                          //determines the order in which the abilities are parsed in converterOld
         "AddResourcesAbility": -1,
         "AddResourcesWhenMotivatedAbility": -1,
         "RandomUnitOfAgeWhenMotivatedAbility": -1,
@@ -18,7 +18,7 @@ function convertOld(Building) {
         "ChainLinkAbility": -1,
         "RandomChestRewardAbility": -1,
     }
-
+    
     var bothAddRes = false;
     var p = "";
     var value
@@ -48,7 +48,7 @@ function convertOld(Building) {
             AgeData.push(Age); //push raw age if no wikidata available - should not trigger in the current version, as only "known" ages are looped
         }
         if (createHeader) { //create Header only on firt age runthrough - similar below
-            Building.header.push(prodheaders["age"]);
+            Building.header.push(prodHeaders["age"]);
         }
 
 
@@ -72,7 +72,7 @@ function convertOld(Building) {
                         }
                         AgeData.push(pop);
                         if (createHeader) {
-                            Building.header.push(prodheaders["provided_population"]);
+                            Building.header.push(prodHeaders["provided_population"]);
                         }
                     }
                     //happiness
@@ -91,9 +91,9 @@ function convertOld(Building) {
                                 AgeData.push(hapeff)
                             }
                             if (createHeader) {
-                                Building.header.push(prodheaders["provided_happiness"]);
+                                Building.header.push(prodHeaders["provided_happiness"]);
                                 if (Building.size != 1) {
-                                    Building.header.push(prodheaders["hapeff"]);
+                                    Building.header.push(prodHeaders["hapeff"]);
                                 }
 
                             }
@@ -102,20 +102,20 @@ function convertOld(Building) {
                     if (Level["produced_money"]) {
                         AgeData.push(numberWithCommas(Level["produced_money"]))
                         if (createHeader) {
-                            Building.header.push(prodheaders["produced_money"]);
+                            Building.header.push(prodHeaders["produced_money"]);
                         }
                     }
                     //ranking points
                     if (Level["points"]) {
                         AgeData.push(numberWithCommas(Level["points"]))
                         if (createHeader) {
-                            Building.header.push(prodheaders["points"]);
+                            Building.header.push(prodHeaders["points"]);
                         }
                     }
                     if (Level["clan_power"]) {
                         AgeData.push(numberWithCommas(Level["clan_power"]))
                         if (createHeader) {
-                            Building.header.push(prodheaders["clan_power"]);
+                            Building.header.push(prodHeaders["clan_power"]);
                         }
                     }
                     //Productions of Production buildings
@@ -124,7 +124,7 @@ function convertOld(Building) {
                             var Prod = Level.production_values[prod];
                             AgeData.push(numberWithCommas(Prod["value"]));
                             if (createHeader) {
-                                Building.header.push(headerextra["Prod " + prod] + "<br>" + prodheaders[Prod["type"]]);
+                                Building.header.push(headerExtra["Prod " + prod] + "<br>" + prodHeaders[Prod["type"]]);
                             }
                         }
                     }
@@ -147,7 +147,7 @@ function convertOld(Building) {
                             }
 
 
-                            for (let res in prodheaders) {//test the resources for possible resources listed in prodheaders
+                            for (let res in prodHeaders) {//test the resources for possible resources listed in prodheaders
                                 value = 0;
                                 if (Ability["additionalResources"][Age]) {
                                     if (Ability["additionalResources"][Age]["resources"][res]) {
@@ -178,7 +178,7 @@ function convertOld(Building) {
                                     if (value) {
                                         AgeData.push(numberWithCommas(value));
                                         if (createHeader) {
-                                            Building.header.push(prodheaders[res])
+                                            Building.header.push(prodHeaders[res])
                                         }
                                     }
                                 }
@@ -187,13 +187,13 @@ function convertOld(Building) {
                         case "RandomUnitOfAgeWhenMotivatedAbility":
                             AgeData.push(numberWithCommas(Ability["amount"]));
                             if (createHeader) {
-                                Building.header.push(prodheaders["Unit-Production"])
+                                Building.header.push(prodHeaders["Unit-Production"])
                             }
                             break;
                         case "RandomBlueprintWhenMotivatedAbility":
                             AgeData.push(1);
                             if (createHeader) {
-                                Building.header.push(prodheaders["BP-Production"])
+                                Building.header.push(prodHeaders["BP-Production"])
                             }
                             break;
                         case "AddResourcesToGuildTreasuryAbility":
@@ -212,7 +212,7 @@ function convertOld(Building) {
                             if (CP) {
                                 AgeData.push(numberWithCommas(CP));
                                 if (createHeader) {
-                                    Building.header.push(prodheaders["clan_power"]);
+                                    Building.header.push(prodHeaders["clan_power"]);
                                 }
                             }
                             //clan goods
@@ -230,7 +230,7 @@ function convertOld(Building) {
                             if (CG) {
                                 AgeData.push(numberWithCommas(CG));
                                 if (createHeader) {
-                                    Building.header.push(prodheaders["clan_goods"]);
+                                    Building.header.push(prodHeaders["clan_goods"]);
                                 }
                             }
                             break;
@@ -238,9 +238,16 @@ function convertOld(Building) {
                         case "BoostAbility":
                             for (let boost in Ability["boostHints"]) {
                                 var Boost = Ability.boostHints[boost];
-                                AgeData.push(Boost["boostHintEraMap"][Age]["value"] + "%")
+                                var x=0;
+                                if (Boost.boostHintEraMap[Age]) {
+                                    x+=AgeData.push(Boost.boostHintEraMap[Age]["value"]);
+                                }
+                                if (Boost.boostHintEraMap["AllAge"]) {
+                                    x+=AgeData.push(Boost.boostHintEraMap["AllAge"]["value"]);
+                                }
+                                x += "%";
                                 if (createHeader) {
-                                    Building.header.push(prodheaders[Boost["boostHintEraMap"][Age]["type"]]);
+                                    Building.header.push(prodHeaders[Boost["boostHintEraMap"][Age]["type"]]);
                                 }
                             }
                             break;
@@ -256,7 +263,7 @@ function convertOld(Building) {
                                         if (categoryBoosts.includes(type)) value += "%";
                                         AgeData.push(value)
                                         if (createHeader) {
-                                            Building.header.push(headerextra["Set " + Bonus["level"]] + "<br>" + prodheaders[type]);
+                                            Building.header.push(headerExtra["Set " + Bonus["level"]] + "<br>" + prodHeaders[type]);
                                         }
                                     } else {
                                         if (Bonus["boost"]["AllAge"]) {
@@ -266,7 +273,7 @@ function convertOld(Building) {
                                             if (categoryBoosts.includes(type)) value += "%";
                                             AgeData.push(value)
                                             if (createHeader) {
-                                                Building.header.push(headerextra["Set " + Bonus["level"]] + "<br>" + prodheaders[type]);
+                                                Building.header.push(headerExtra["Set " + Bonus["level"]] + "<br>" + prodHeaders[type]);
                                             }
                                         }
                                     }
@@ -275,7 +282,7 @@ function convertOld(Building) {
                                         for (res in Bonus["revenue"][Age]["resources"]) {
                                             AgeData.push(numberWithCommas(Bonus["revenue"][Age]["resources"][res]))
                                             if (createHeader) {
-                                                Building.header.push(headerextra["Set " + Bonus["level"]] + "<br>" + prodheaders[res]);
+                                                Building.header.push(headerExtra["Set " + Bonus["level"]] + "<br>" + prodHeaders[res]);
                                             }
                                         }
                                     } else {
@@ -283,7 +290,7 @@ function convertOld(Building) {
                                             for (res in Bonus["revenue"]["AllAge"]["resources"]) {
                                                 AgeData.push(numberWithCommas(Bonus["revenue"]["AllAge"]["resources"][res]))
                                                 if (createHeader) {
-                                                    Building.header.push(headerextra["Set " + Bonus["level"]] + "<br>" + prodheaders[res]);
+                                                    Building.header.push(headerExtra["Set " + Bonus["level"]] + "<br>" + prodHeaders[res]);
                                                 }
                                             }
                                         }
@@ -303,7 +310,7 @@ function convertOld(Building) {
                                         if (categoryBoosts.includes(type)) value += "%";
                                         AgeData.push(value)
                                         if (createHeader) {
-                                            Building.header.push(headerextra["Chain"] + "<br>" + prodheaders[type]);
+                                            Building.header.push(headerExtra["Chain"] + "<br>" + prodHeaders[type]);
                                         }
 
                                     } else {
@@ -313,7 +320,7 @@ function convertOld(Building) {
                                         if (categoryBoosts.includes(type)) value += "%";
                                         AgeData.push(value)
                                         if (createHeader) {
-                                            Building.header.push(headerextra["Chain"] + "<br>" + prodheaders[type]);
+                                            Building.header.push(headerExtra["Chain"] + "<br>" + prodHeaders[type]);
                                         }
                                     }
                                 } else {
@@ -321,7 +328,7 @@ function convertOld(Building) {
                                         for (res in Bonus["revenue"][Age]["resources"]) {
                                             AgeData.push(numberWithCommas(Bonus["revenue"][Age]["resources"][res]))
                                             if (createHeader) {
-                                                Building.header.push(headerextra["Chain"] + "<br>" + prodheaders[res]);
+                                                Building.header.push(headerExtra["Chain"] + "<br>" + prodHeaders[res]);
                                             }
                                         }
                                     } else {
@@ -329,7 +336,7 @@ function convertOld(Building) {
                                             for (res in Bonus["revenue"]["AllAge"]["resources"]) {
                                                 AgeData.push(numberWithCommas(Bonus["revenue"]["AllAge"]["resources"][res]))
                                                 if (createHeader) {
-                                                    Building.header.push(headerextra["Chain"] + "<br>" + prodheaders[res]);
+                                                    Building.header.push(headerExtra["Chain"] + "<br>" + prodHeaders[res]);
                                                 }
                                             }
                                         }
@@ -345,19 +352,19 @@ function convertOld(Building) {
                                     case "resource":
                                         AgeData.push(numberWithCommas(Reward["reward"]["amount"]));
                                         if (createHeader) {
-                                            Building.header.push(Reward["drop_chance"] + "% for<br>" + prodheaders[Reward["reward"]["subType"]]);
+                                            Building.header.push(Reward["drop_chance"] + "% for<br>" + prodHeaders[Reward["reward"]["subType"]]);
                                         }
                                         break;
                                     case "chest":
                                         AgeData.push(numberWithCommas(Reward["reward"]["possible_rewards"][1]["reward"]["amount"]));
                                         if (createHeader) {
-                                            Building.header.push(Reward["drop_chance"] + "% for<br>" + prodheaders[Reward["reward"]["possible_rewards"][1]["reward"]["type"]]);
+                                            Building.header.push(Reward["drop_chance"] + "% for<br>" + prodHeaders[Reward["reward"]["possible_rewards"][1]["reward"]["type"]]);
                                         }
                                         break;
                                     case "blueprint":
                                         AgeData.push(numberWithCommas(Reward["reward"]["amount"]));
                                         if (createHeader) {
-                                            Building.header.push(Reward["drop_chance"] + "% for<br>" + prodheaders["BP-Production"]);
+                                            Building.header.push(Reward["drop_chance"] + "% for<br>" + prodHeaders["BP-Production"]);
                                         }
                                         break;
 
