@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="de"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	
+	<title>FoE Karten Export</title>
+	<meta name="description" content="FoE Map Export">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+	<div class="container">
+		<h1>FoE Province Data Export to Wiki</h1>
+		<div class="mapdata">
+			data from .json loaded after opening continent map
+			<div><textarea></textarea></div>
+		</div>
+		<div class="eradata">
+			data from metadata?id=research_eras
+			<div><textarea></textarea></div>
+		</div>
+		<button id="loadData">Extract Data</button>
+		<div class="results">
+			<h2>Wiki-Export</h2>
+			<table id="provinces">
+			</table>
+		</div>
+	</div>
+<script type="text/javascript">	
+	let provinces = [];
+	let eras = [];
+	
+	const elemMapdataError = document.querySelector('.mapdata .errors');
+	const elemLoadButton = document.getElementById('loadData');
+	const elemTable = document.getElementById('provinces');
+	const elemMapdata = document.querySelectorAll('.mapdata textarea');
+	const elemEras = document.querySelectorAll('.eradata textarea');
+	
+	function loadMapdata(elem) {
+		var data = [];
+		if (elem.value != "") {
+			data = JSON.parse(elem.value);
+			mapData = data.find(x => x.requestClass  === "CampaignService");
+			if (mapData != {}) {
+				mapData.responseData.provinces.forEach(function (province) {
+					var newProvince = setProvince(province);
+					provinces.push(newProvince);
+				});
+			}
+      }
+	}
+function loadEras(elem) {
+		var eraData = [];
+		if (elem.value != "") {
+			eraData = JSON.parse(elem.value);
+			if (eraData != {}) {
+				eraData.forEach(function (eraX) {
+					eras[eraX.era] = eraX.name;
+				});
+			}
+      }
+	}
+
+	function setProvince(province = {}) {
+		var newProvince = {
+			id: "",
+			name: "",
+			era: "",
+			scoutingcost: "",
+			owner:"",
+			welcome:"",
+			attack:"",
+		};
+		try {newProvince.id = province.id;}
+		catch (error){};
+		try {newProvince.name = province.name;}
+		catch (error){};
+		try {newProvince.era = eras[province.era];}
+		catch (error){};
+		try {
+			if (province.scoutingCost != undefined){
+				SC = province.scoutingCost;
+				newProvince.scoutingcost = SC.toString()
+			}
+		}
+		catch (error){};
+		try {newProvince.owner = province.owner.name;}
+		catch (error){};
+		try {newProvince.welcome = province.text.welcomeText;}
+		catch (error){};
+		try {newProvince.attack = province.text.attackText;}
+		catch (error){};
+	return newProvince;
+	}
+
+	function buildSmallTable() {
+		var out = '<thead><tr><th>Name</th><th>Wiki-Code</th></tr></thead><tbody>';
+		var prevEra = "";
+		provinces.forEach(function (province) {
+			if (province.era != prevEra) {
+				out += '</tbody><tbody>';
+				out += '<tr><td colspan="2"><h2>'+province.era+'</h2></th></tr>';
+			}
+			out += '<tr>';
+			out += '<td><a href="https://forgeofempires.fandom.com/wiki/'+province.name+'?action=edit">'+province.name+'</a><br>[['+province.name+']]<br>id='+province.id+'</td>';
+			out += '<td><textarea>{{Stub}}';
+			out += '\n{{Infobox Province';
+			out += '\n|name = The Province of {{PAGENAME}}';
+			out += '\n|image ='+province.owner+'.jpg';
+			out += '\n|imagewidth = 90';
+			out += '\n|caption = '+province.owner
+			out += '\n|Age = [['+province.era+']]';
+			out += '\n|Province Owner = '+province.owner
+			out += '\n|Scouting Cost = ' + formatstring(province.scoutingcost);
+			out += '\n|Scouting Time = ';
+			out += '\n|Infiltration Cost = ';
+			out += '\n|Defense = ';
+			out += '\n|Reward = ';
+			out += '\n}}';
+			out += '\n== Information ==';
+			out += '\nThe Province of {{PAGENAME}} is one of the [['+province.era+']] provinces.';
+			out += '\n';
+			out += '\n{{Narrative';
+			out += '\n|Content1='+province.welcome;
+			out += '\n|Content2=';
+			out += '\n|Content3='+province.attack;
+			out += '\n}}';
+			out += '\n';
+			out += '\n\&lt!--';
+			out += '\nPLEASE FILL OUT THE TEMPLATE BELOW WITH THE CORRECT INFORMATION BEFORE INCLUDING IT ON THE PAGE!';
+			out += '\n{{ProvinceMap';
+			out += '\n|Map=';
+			out += '\n|Sector1Army1=';
+			out += '\n|Sector1Army2=';
+			out += '\n|Sector1NegotiationCost=';
+			out += '\n|Sector1Loot=';
+			out += '\n';
+			out += '\n|Sector2Army1=';
+			out += '\n|Sector2Army2=';
+			out += '\n|Sector2NegotiationCost=';
+			out += '\n|Sector2Loot=';
+			out += '\n';
+			out += '\n|Sector3Army1=';
+			out += '\n|Sector3Army2=';
+			out += '\n|Sector3NegotiationCost=';
+			out += '\n|Sector3Loot=';
+			out += '\n';
+			out += '\n|Sector4Army1=';
+			out += '\n|Sector4Army2=';
+			out += '\n|Sector4NegotiationCost=';
+			out += '\n|Sector4Loot=';
+			out += '\n';
+			out += '\n|Sector5Army1=';
+			out += '\n|Sector5Army2=';
+			out += '\n|Sector5NegotiationCost=';
+			out += '\n|Sector5Loot=';
+			out += '\n';
+			out += '\n|Sector6Army1=';
+			out += '\n|Sector6Army2=';
+			out += '\n|Sector6NegotiationCost=';
+			out += '\n|Sector6Loot=';
+			out += '\n';
+			out += '\n|Sector7Army1=';
+			out += '\n|Sector7Army2=';
+			out += '\n|Sector7NegotiationCost=';
+			out += '\n|Sector7Loot=';
+			out += '\n';
+			out += '\n|Sector8Army1=';
+			out += '\n|Sector8Army2=';
+			out += '\n|Sector8NegotiationCost=';
+			out += '\n|Sector8Loot=';
+			out += '\n';
+			out += '\n|Sector9Army1=';
+			out += '\n|Sector9Army2=';
+			out += '\n|Sector9NegotiationCost=';
+			out += '\n|Sector9Loot=';
+			out += '\n';
+			out += '\n|Sector10Army1=';
+			out += '\n|Sector10Army2=';
+			out += '\n|Sector10NegotiationCost=';
+			out += '\n|Sector10Loot=';
+			out += '\n';
+			out += '\n|Sector11Army1=';
+			out += '\n|Sector11Army2=';
+			out += '\n|Sector11NegotiationCost=';
+			out += '\n|Sector11Loot=';
+			out += '\n';
+			out += '\n|Sector12Army1=';
+			out += '\n|Sector12Army2=';
+			out += '\n|Sector12NegotiationCost=';
+			out += '\n|Sector12Loot=';
+			out += '\n';
+			out += '\n|Sector13Army1=';
+			out += '\n|Sector13Army2=';
+			out += '\n|Sector13NegotiationCost=';
+			out += '\n|Sector13Loot=';
+			out += '\n';
+			out += '\n|Sector14Army1=';
+			out += '\n|Sector14Army2=';
+			out += '\n|Sector14NegotiationCost=';
+			out += '\n|Sector14Loot=';
+			out += '\n';
+			out += '\n|Sector15Army1=';
+			out += '\n|Sector15Army2=';
+			out += '\n|Sector15NegotiationCost=';
+			out += '\n|Sector15Loot=';
+			out += '\n}}';
+			out += '\n--&gt';
+			out += '\n{{Provinces}}'			
+			out += '</textarea></td></tr>';
+			prevEra = province.era;
+		});
+		out += '</tbody>';
+		return out;
+	}
+	
+	function formatstring (number) {
+		if (number.length > 3) {
+			number = formatstring(number.slice(0,number.length-4)) + ',' + number.slice(number.length-3);
+		}
+		return number
+	}
+
+	elemLoadButton.addEventListener("click", function() {
+		elemTable.innerHTML = "";
+
+		elemEras.forEach(elem => {
+			loadEras(elem);
+		});
+		elemMapdata.forEach(elem => {
+			loadMapdata(elem);
+		});
+		
+		elemTable.insertAdjacentHTML('beforeend', buildSmallTable());
+		guilds = [];
+		document.querySelector('.results').style.display = "block";
+
+	});
+
+</script>
+
+</body></html>
