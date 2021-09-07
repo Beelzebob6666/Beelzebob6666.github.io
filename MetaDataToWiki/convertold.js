@@ -18,7 +18,7 @@ function convertOld(Building) {
         "ChainLinkAbility": -1,
         "RandomChestRewardAbility": -1,
     }
-    
+
     var bothAddRes = false;
     var p = "";
     var value
@@ -238,16 +238,19 @@ function convertOld(Building) {
                         case "BoostAbility":
                             for (let boost in Ability["boostHints"]) {
                                 var Boost = Ability.boostHints[boost];
-                                var x=0;
+                                var x = 0;
+                                var type = "";
                                 if (Boost.boostHintEraMap[Age]) {
-                                    x+=AgeData.push(Boost.boostHintEraMap[Age]["value"]);
+                                    x += AgeData.push(Boost.boostHintEraMap[Age]["value"]);
+                                    type = prodHeaders[Boost["boostHintEraMap"][Age]["type"]]
                                 }
                                 if (Boost.boostHintEraMap["AllAge"]) {
-                                    x+=AgeData.push(Boost.boostHintEraMap["AllAge"]["value"]);
+                                    x += AgeData.push(Boost.boostHintEraMap["AllAge"]["value"]);
+                                    type = prodHeaders[Boost["boostHintEraMap"]["AllAge"]["type"]]
                                 }
                                 x += "%";
                                 if (createHeader) {
-                                    Building.header.push(prodHeaders[Boost["boostHintEraMap"][Age]["type"]]);
+                                    Building.header.push(type);
                                 }
                             }
                             break;
