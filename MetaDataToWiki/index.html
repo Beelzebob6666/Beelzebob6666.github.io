@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <title></title>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta name="robots" content="noindex, nofollow">
+    <meta name="googlebot" content="noindex, nofollow">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+    <script type="text/javascript" src="jquery.js"></script>
+    <script src="basedata.js" charset="utf-8"></script>
+    <script defer src="Buildings.js" charset="utf-8"></script>
+    <script defer src="converter.js" charset="utf-8"></script>
+    <script defer src="convertold.js" charset="utf-8"></script>
+    <script defer src="dataToWiki.js" charset="utf-8"></script>
+    <script defer src="images.js" charset="utf-8"></script>
+    <script defer type="text/javascript" src="https://stuk.github.io/jszip/dist/jszip.js"></script>
+    <script defer type="text/javascript" src="https://stuk.github.io/jszip-utils/dist/jszip-utils.js"></script>
+    <script defer type="text/javascript" src="https://stuk.github.io/jszip/vendor/FileSaver.js"></script>
+
+</head>
+
+<body onload="getAges()">
+    <div style="display:  flex;justify-content: space-between;align-items: flex-start;flex-direction: row;">
+        <div>
+            Link to meta-data file: <input type="text" id="rawdata"
+                value=""
+                maxlength="200" />
+            <button id="getData" onclick="getData()">Get Data</button>
+            <br><br>
+            Select building from list: <select id="Buildings">
+            </select>
+        </div>
+        <a href="help.html">HELP ME</a>
+        <div id="filter">
+            <input id="filterTypeCB" type="checkbox" onchange="getData()" />Filter for Type:
+            <select id="filterType" onchange="getData()">
+                <option value="residential">Residential Buildings</option>
+                <option value="production">Production Buildings</option>
+                <option value="culture">Cultural Buildings</option>
+                <option value="decoration">Decoration</option>
+                <option value="goods">Goods Buildings</option>
+                <option value="random_production">Random Production Buildings</option>
+                <option value="military">Military Buildings</option>
+            </select><br>
+            <input id="filterAgeCB" type="checkbox" onchange="getData()" />Filter for Age:
+            <select id="filterAge" onchange="getData()">
+            </select><br>
+            <input type="checkbox" id="isSpecial" onchange="getData()" />is Special (not always correctly set for new
+            buildings
+            as it seems)
+        </div>
+    </div>
+
+    <div class="results">
+        <textarea style="resize:none; width:100%; height:300px; max-height: 300px;" id="Wiki"></textarea>
+    </div>
+    Select from images (click individually or ): <button id="selectAll" onclick="selectAll()">selectAll</button>
+    <div id="images" style="width:100%; ">
+
+    </div>
+    Selected Images (click to remove): <button onclick="download()">Download selected</button><button
+        onclick="clearDownload()">clear list</button>
+    <div id="download" style="width:100%;">
+
+    </div>
+</body>
+
+</html>
