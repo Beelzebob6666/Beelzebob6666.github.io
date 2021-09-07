@@ -65,7 +65,7 @@ const prodHeaders = {                       //translates production options to w
     "clan_power": "{{Power}}",
     "clan_goods": "{{GUIG}}",
     "BP-Production": "{{BP}}",
-    "Unit-Production" : "{{IMU}}"
+    "Unit-Production" : "{{IMU}}",
     "att_boost_attacker": "{{IATT}}",
     "def_boost_defender": "{{DEF}}",
     "att_boost_defender": "{{DATT}}",
