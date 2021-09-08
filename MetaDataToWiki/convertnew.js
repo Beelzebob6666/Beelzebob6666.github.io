@@ -49,16 +49,14 @@ function convertNew() {
                 let pop = AgeJson.staticResources.resources.resources.population;
                 if (pop) {
                     //var popeff = Math.round(pop / Building.size)
-                    pop = numberWithCommas(pop)
                     if (pop > 0) {
-                        pop = "+" + pop;
-                        //popeff = "+" + popeff;
+                        pop = "+" + numberWithCommas(pop);
+                    } else {
+                        pop = numberWithCommas(pop);
                     }
                     AgeData.push(pop);
-                    //AgeData.push(popeff);
                     if (createHeader) {
                         Building.header.push(prodHeaders["provided_population"]);
-                        //Building.header.push("...");
                     }
                 }
             } catch (err) {
@@ -69,8 +67,6 @@ function convertNew() {
                 let hap = AgeJson.happiness.provided;
                 if (hap) {
                     var hapeff = Math.round(hap / Building.size)
-                    hap = numberWithCommas(hap);
-                    hapeff = numberWithCommas(hapeff);
                     if (hap > 0) {
                         hap = "+" + numberWithCommas(hap);
                         hapeff = "+" + numberWithCommas(hapeff);

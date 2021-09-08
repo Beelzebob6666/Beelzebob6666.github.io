@@ -103,6 +103,6 @@ const multiageWiki = {
 }
 
 const specialProducts = {
-    "Fragment of One Up Kit": "[[OneUpKitFragment.png|20px|Fragments]]",
+    "Fragment of One Up Kit": "[[File:OneUpKitFragment.png|20px|link=Fragments|Fragment of One Up Kit]]",
 
 }

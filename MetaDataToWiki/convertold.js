@@ -65,9 +65,11 @@ function convertOld(Building) {
                     }
 
                     if (pop) {
-                        pop = numberWithCommas(pop);
                         if (pop > 0) {
-                            pop = "+" + pop;
+                            pop = "+" + numberWithCommas(pop);
+                        }
+                        else {
+                            pop = numberWithCommas(pop);
                         }
                         AgeData.push(pop);
                         if (createHeader) {
