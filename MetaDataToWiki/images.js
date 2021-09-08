@@ -52,7 +52,8 @@ function removeImg(img) {
 
 function selectAll() {
     const all = document.getElementsByClassName("forSelection");
-    for (let i = 0; i < all.length; i++) {
+    let k= all.length;
+    for (let i = 0; i < k; i++) {
         selectImg(all[0]);
     }
 

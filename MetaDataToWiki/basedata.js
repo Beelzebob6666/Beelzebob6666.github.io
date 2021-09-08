@@ -38,7 +38,7 @@ const headerExtra = {
 }
 
 
-const prodHeaders = {                       //translates production options to wiki code (table heads), determines the order of listing of the options in the output-tabel
+const prodHeaders = {                       //translates production options to wiki code (table heads), determines the order of listing of the options in the output-tabel for convertOld
     "age": "{{IAGE}}",
     "provided_population": "{{IPOP}}",
     "provided_happiness": "{{IHAP}}",
