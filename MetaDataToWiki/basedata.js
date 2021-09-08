@@ -75,6 +75,18 @@ const prodHeaders = {                       //translates production options to w
     "supply_production": "{{ISUP}} Boost",
 }
 
+const NewAbilityIndex = {                          //determines the order in which the abilities are parsed in convertOld
+    "AddResourcesAbility": -1,
+    "AddResourcesWhenMotivatedAbility": -1,
+    "RandomUnitOfAgeWhenMotivatedAbility": -1,
+    "RandomBlueprintWhenMotivatedAbility": -1,
+    "AddResourcesToGuildTreasuryAbility": -1,
+    "BoostAbility": -1,
+    "BonusOnSetAdjacencyAbility": -1,
+    "ChainLinkAbility": -1,
+    "RandomChestRewardAbility": -1,
+}
+
 const categoryGoods = [
     "random_good_of_age",
     "random_good_of_age_1",
@@ -106,3 +118,16 @@ const specialProducts = {
     "Fragment of One Up Kit": "[[File:OneUpKitFragment.png|20px|link=Fragments|Fragment of One Up Kit]]",
 
 }
+
+const NewProductions = {                  // determines order of productions in convertNew        
+    "money": 0,
+    "supplies": 0,
+    "medals": 0,
+    "goods": 0,
+    "strategy_points":0,
+    "premium":0,
+    "clan_power" :0,
+    "clan_goods": 0,
+    "BP-Production": 0,
+    "Unit-Production" : 0,
+    }

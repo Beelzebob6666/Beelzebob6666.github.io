@@ -3,11 +3,11 @@ function dataToWiki(Building) {
   if (Building.json.type === "production" && !(Building.json.is_special)) {
     Wikitext = "{{PROTAB";
 
-    for (let j in Building.json["available_products"]) {
+    for (let j in Building.json.available_products) {
       let Product = Building.json.available_products[j];
       const xx = 65 + parseInt(j);
       const XX = String.fromCharCode(xx);
-      Wikitext += String.fromCharCode(13) + "|" + XX + "1 = " + Product["name"] + "|" + XX + "2 = " + numberWithCommas(Product.product.resources.supplies);
+      Wikitext += String.fromCharCode(13) + "|" + XX + "1 = " + Product.name + "|" + XX + "2 = " + numberWithCommas(Product.product.resources.supplies);
     }
     Wikitext += String.fromCharCode(13) + "}}";
 
@@ -17,9 +17,9 @@ function dataToWiki(Building) {
   Wikitext = multiageWiki.tableDef;
   for (let i = 0; i < Building.header.length; i++) {
     if (i === 0) {
-      Wikitext += String.fromCharCode(13) + multiageWiki["styleFirstRow"] + Building.header[i]
+      Wikitext += String.fromCharCode(13) + multiageWiki.styleFirstRow + Building.header[i]
     } else {
-      Wikitext += String.fromCharCode(13) + multiageWiki["styleRow"] + Building.header[i];
+      Wikitext += String.fromCharCode(13) + multiageWiki.styleRow + Building.header[i];
     }
   }
 

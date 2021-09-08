@@ -7,17 +7,7 @@ function convertOld(Building) {
     Building.AgeData = [];
     Building.header = [];
 
-    const AbilityIndex = {                          //determines the order in which the abilities are parsed in converterOld
-        "AddResourcesAbility": -1,
-        "AddResourcesWhenMotivatedAbility": -1,
-        "RandomUnitOfAgeWhenMotivatedAbility": -1,
-        "RandomBlueprintWhenMotivatedAbility": -1,
-        "AddResourcesToGuildTreasuryAbility": -1,
-        "BoostAbility": -1,
-        "BonusOnSetAdjacencyAbility": -1,
-        "ChainLinkAbility": -1,
-        "RandomChestRewardAbility": -1,
-    }
+    const AbilityIndex = {...NewAbilityIndex};
 
     var bothAddRes = false;
     var p = "";
@@ -25,21 +15,21 @@ function convertOld(Building) {
     var type
 
     //check which abilities are included
-    if (Building.json["abilities"]) {
+    if (Building.json.abilities) {
 
-        for (let ability in Building.json["abilities"]) {
-            AbilityIndex[Building.json["abilities"][ability]["__class__"]] = ability;
+        for (let ability in Building.json.abilities) {
+            AbilityIndex[Building.json.abilities[ability].__class__] = ability;
         }
         //handle special case, should there be both AddResources abilities
-        if (AbilityIndex["AddResourcesAbility"] >= 0 && AbilityIndex["AddResourcesWhenMotivatedAbility"] >= 0) {
+        if (AbilityIndex.AddResourcesAbility >= 0 && AbilityIndex.AddResourcesWhenMotivatedAbility >= 0) {
             bothAddRes = true;
         }
     }
 
 
     for (let Age in ages) {//run through the Ages as in the Ages List
-        Building.size = Building.json["width"] * Building.json["length"];
-        var AgeData = [];
+        Building.size = Building.json.width * Building.json.length;
+        let AgeData = [];
         //Age
         if (ages[Age]) {
             AgeData.push(ages[Age]); //push Wiki Age if available
@@ -47,21 +37,21 @@ function convertOld(Building) {
             AgeData.push(Age); //push raw age if no wikidata available - should not trigger in the current version, as only "known" ages are looped
         }
         if (createHeader) { //create Header only on firt age runthrough - similar below
-            Building.header.push(prodHeaders["age"]);
+            Building.header.push(prodHeaders.age);
         }
 
 
-        if (Building.json["entity_levels"]) {
-            for (let level in Building.json["entity_levels"]) {
-                var Level = Building.json.entity_levels[level];
-                if (Level["era"] == Age) {
+        if (Building.json.entity_levels) {
+            for (let level in Building.json.entity_levels) {
+                let Level = Building.json.entity_levels[level];
+                if (Level.era == Age) {
                     //population
-                    var pop = 0;
-                    if (Level["provided_population"]) {
-                        pop = Level["provided_population"];
+                    let pop = 0;
+                    if (Level.provided_population) {
+                        pop = Level.provided_population;
                     }
-                    if (Level["required_population"]) {
-                        pop = pop - Level["required_population"];
+                    if (Level.required_population) {
+                        pop = pop - Level.required_population;
                     }
 
                     if (pop) {
@@ -73,14 +63,14 @@ function convertOld(Building) {
                         }
                         AgeData.push(pop);
                         if (createHeader) {
-                            Building.header.push(prodHeaders["provided_population"]);
+                            Building.header.push(prodHeaders.provided_population);
                         }
                     }
                     //happiness
-                    if (Level["provided_happiness"]) {
-                        var hap = Level["provided_happiness"];
+                    if (Level.provided_happiness) {
+                        let hap = Level.provided_happiness;
                         if (hap) {
-                            var hapeff = Math.round(hap / Building.size)
+                            let hapeff = Math.round(hap / Building.size)
                             if (hap > 0) {
                                 hap = "+" + numberWithCommas(hap);
                                 hapeff = "+" + numberWithCommas(hapeff);
@@ -93,38 +83,38 @@ function convertOld(Building) {
                                 AgeData.push(hapeff)
                             }
                             if (createHeader) {
-                                Building.header.push(prodHeaders["provided_happiness"]);
+                                Building.header.push(prodHeaders.provided_happiness);
                                 if (Building.size != 1) {
-                                    Building.header.push(prodHeaders["hapeff"]);
+                                    Building.header.push(prodHeaders.hapeff);
                                 }
 
                             }
                         }
                     }
-                    if (Level["produced_money"]) {
-                        AgeData.push(numberWithCommas(Level["produced_money"]))
+                    if (Level.produced_money) {
+                        AgeData.push(numberWithCommas(Level.produced_money))
                         if (createHeader) {
-                            Building.header.push(prodHeaders["produced_money"]);
+                            Building.header.push(prodHeaders.produced_money);
                         }
                     }
                     //ranking points
-                    if (Level["points"]) {
-                        AgeData.push(numberWithCommas(Level["points"]))
+                    if (Level.points) {
+                        AgeData.push(numberWithCommas(Level.points))
                         if (createHeader) {
-                            Building.header.push(prodHeaders["points"]);
+                            Building.header.push(prodHeaders.points);
                         }
                     }
-                    if (Level["clan_power"]) {
-                        AgeData.push(numberWithCommas(Level["clan_power"]))
+                    if (Level.clan_power) {
+                        AgeData.push(numberWithCommas(Level.clan_power))
                         if (createHeader) {
-                            Building.header.push(prodHeaders["clan_power"]);
+                            Building.header.push(prodHeaders.clan_power);
                         }
                     }
                     //Productions of Production buildings
-                    if (Level["production_values"]) {
-                        for (let prod in Level["production_values"]) {
-                            var Prod = Level.production_values[prod];
-                            AgeData.push(numberWithCommas(Prod["value"]));
+                    if (Level.production_values) {
+                        for (let prod in Level.production_values) {
+                            let Prod = Level.production_values[prod];
+                            AgeData.push(numberWithCommas(Prod.value));
                             if (createHeader) {
                                 Building.header.push(headerExtra["Prod " + prod] + prodHeaders[Prod["type"]]);
                             }
@@ -134,44 +124,44 @@ function convertOld(Building) {
             }
         }
 
-        if (Building.json["abilities"]) {
+        if (Building.json.abilities) {
             for (let ability in AbilityIndex) {
                 if (AbilityIndex[ability] >= 0) {
-                    var Ability = Building.json.abilities[AbilityIndex[ability]];
+                    let Ability = Building.json.abilities[AbilityIndex[ability]];
 
                     switch (ability) {
                         case "AddResourcesAbility":
                         case "AddResourcesWhenMotivatedAbility":
-                            var goods = 0;
+                            let goods = 0;
 
                             if (bothAddRes) {
                                 if (ability=="AddResourcesWhenMotivatedAbility") {
                                     break;
                                 }
-                                var Ability2 = Building.json.abilities[AbilityIndex["AddResourcesWhenMotivatedAbility"]];
+                                var Ability2 = Building.json.abilities[AbilityIndex.AddResourcesWhenMotivatedAbility];
                             }
 
                             for (let res in prodHeaders) {//test the resources for possible resources listed in prodheaders
                                 value = 0;
-                                if (Ability["additionalResources"][Age]) {
-                                    if (Ability["additionalResources"][Age]["resources"][res]) {
-                                        value += Ability["additionalResources"][Age]["resources"][res];
+                                if (Ability.additionalResources[Age]) {
+                                    if (Ability.additionalResources[Age].resources[res]) {
+                                        value += Ability.additionalResources[Age].resources[res];
                                     }
                                 }
-                                if (Ability["additionalResources"]["AllAge"]) {
-                                    if (Ability["additionalResources"]["AllAge"]["resources"][res]) {
-                                        value += Ability["additionalResources"]["AllAge"]["resources"][res];
+                                if (Ability.additionalResources.AllAge) {
+                                    if (Ability.additionalResources.AllAge.resources[res]) {
+                                        value += Ability.additionalResources.AllAge.resources[res];
                                     }
                                 }
                                 if (bothAddRes) {
-                                    if (Ability2["additionalResources"][Age]) {
-                                        if (Ability2["additionalResources"][Age]["resources"][res]) {
-                                            value += Ability2["additionalResources"][Age]["resources"][res];
+                                    if (Ability2.additionalResources[Age]) {
+                                        if (Ability2.additionalResources[Age].resources[res]) {
+                                            value += Ability2.additionalResources[Age].resources[res];
                                         }
                                     }
-                                    if (Ability2["additionalResources"]["AllAge"]) {
-                                        if (Ability2["additionalResources"]["AllAge"]["resources"][res]) {
-                                            value += Ability2["additionalResources"]["AllAge"]["resources"][res];
+                                    if (Ability2.additionalResources.AllAge) {
+                                        if (Ability2.additionalResources.AllAge.resources[res]) {
+                                            value += Ability2.additionalResources.AllAge.resources[res];
                                         }
                                     }
                                 }
@@ -189,7 +179,7 @@ function convertOld(Building) {
                             }
                             break;
                         case "RandomUnitOfAgeWhenMotivatedAbility":
-                            AgeData.push(numberWithCommas(Ability["amount"]));
+                            AgeData.push(numberWithCommas(Ability.amount));
                             if (createHeader) {
                                 Building.header.push(prodHeaders["Unit-Production"])
                             }
@@ -202,55 +192,55 @@ function convertOld(Building) {
                             break;
                         case "AddResourcesToGuildTreasuryAbility":
                             //clan power
-                            var CP = 0
-                            if (Ability["additionalResources"][Age]) {
-                                if (Ability["additionalResources"][Age]["resources"]["clan_power"]) {
-                                    CP = Ability["additionalResources"][Age]["resources"]["clan_power"]
+                            let CP = 0
+                            if (Ability.additionalResources[Age]) {
+                                if (Ability.additionalResources[Age].resources.clan_power) {
+                                    CP = Ability.additionalResources[Age].resources.clan_power
                                 }
                             }
-                            if (Ability["additionalResources"]["AllAge"]) {
-                                if (Ability["additionalResources"]["AllAge"]["resources"]["clan_power"]) {
-                                    CP = CP + Ability["additionalResources"]["AllAge"]["resources"]["clan_power"]
+                            if (Ability.additionalResources.AllAge) {
+                                if (Ability.additionalResources.AllAge.resources.clan_power) {
+                                    CP = CP + Ability.additionalResources.AllAge.resources.clan_power
                                 }
                             }
                             if (CP) {
                                 AgeData.push(numberWithCommas(CP));
                                 if (createHeader) {
-                                    Building.header.push(prodHeaders["clan_power"]);
+                                    Building.header.push(prodHeaders.clan_power);
                                 }
                             }
                             //clan goods
-                            var CG = 0
-                            if (Ability["additionalResources"][Age]) {
-                                if (Ability["additionalResources"][Age]["resources"]["all_goods_of_age"]) {
-                                    CG = Ability["additionalResources"][Age]["resources"]["all_goods_of_age"]
+                            let CG = 0
+                            if (Ability.additionalResources[Age]) {
+                                if (Ability.additionalResources[Age].resources.all_goods_of_age) {
+                                    CG = Ability.additionalResources[Age].resources.all_goods_of_age
                                 }
                             }
-                            if (Ability["additionalResources"]["AllAge"]) {
-                                if (Ability["additionalResources"]["AllAge"]["resources"]["all_goods_of_age"]) {
-                                    CG += Ability["additionalResources"]["AllAge"]["resources"]["all_goods_of_age"]
+                            if (Ability.additionalResources.AllAge) {
+                                if (Ability.additionalResources.AllAge.resources.all_goods_of_age) {
+                                    CG += Ability.additionalResources.AllAge.resources.all_goods_of_age
                                 }
                             }
                             if (CG) {
                                 AgeData.push(numberWithCommas(CG));
                                 if (createHeader) {
-                                    Building.header.push(prodHeaders["clan_goods"]);
+                                    Building.header.push(prodHeaders.clan_goods);
                                 }
                             }
                             break;
                         //Boosts
                         case "BoostAbility":
-                            for (let boost in Ability["boostHints"]) {
-                                var Boost = Ability.boostHints[boost];
-                                var x = 0;
-                                var type = "";
+                            for (let boost in Ability.boostHints) {
+                                let Boost = Ability.boostHints[boost];
+                                let x = 0;
+                                let type = "";
                                 if (Boost.boostHintEraMap[Age]) {
-                                    x += AgeData.push(Boost.boostHintEraMap[Age]["value"]);
-                                    type = prodHeaders[Boost["boostHintEraMap"][Age]["type"]]
+                                    x += AgeData.push(Boost.boostHintEraMap[Age].value);
+                                    type = prodHeaders[Boost.boostHintEraMap[Age].type]
                                 }
-                                if (Boost.boostHintEraMap["AllAge"]) {
-                                    x += AgeData.push(Boost.boostHintEraMap["AllAge"]["value"]);
-                                    type = prodHeaders[Boost["boostHintEraMap"]["AllAge"]["type"]]
+                                if (Boost.boostHintEraMap.AllAge) {
+                                    x += AgeData.push(Boost.boostHintEraMap.AllAge.value);
+                                    type = prodHeaders[Boost.boostHintEraMap.AllAge.type]
                                 }
                                 x += "%";
                                 if (createHeader) {
@@ -260,12 +250,12 @@ function convertOld(Building) {
                             break;
                         //Sets
                         case "BonusOnSetAdjacencyAbility":
-                            for (let bonus in Ability["bonuses"]) {
-                                var Bonus = Ability["bonuses"][bonus];
-                                if (Object.keys(Bonus["boost"]).length > 0) {
-                                    if (Bonus["boost"][Age]) {
-                                        value = numberWithCommas(Bonus["boost"][Age]["value"]);
-                                        type = Bonus["boost"][Age]["type"];
+                            for (let bonus in Ability.bonuses) {
+                                let Bonus = Ability.bonuses[bonus];
+                                if (Object.keys(Bonus.boost).length > 0) {
+                                    if (Bonus.boost[Age]) {
+                                        value = numberWithCommas(Bonus.boost[Age].value);
+                                        type = Bonus.boost[Age].type;
                                         if (type == "happiness_amount" && value >> 0) value = "+" + value;
                                         if (categoryBoosts.includes(type)) value += "%";
                                         AgeData.push(value)
@@ -273,9 +263,9 @@ function convertOld(Building) {
                                             Building.header.push(headerExtra["Set " + Bonus["level"]] + prodHeaders[type]);
                                         }
                                     } else {
-                                        if (Bonus["boost"]["AllAge"]) {
-                                            value = numberWithCommas(Bonus["boost"]["AllAge"]["value"]);
-                                            type = Bonus["boost"]["AllAge"]["type"];
+                                        if (Bonus.boost.AllAge) {
+                                            value = numberWithCommas(Bonus.boost.AllAge.value);
+                                            type = Bonus.boost.AllAge.type;
                                             if (type == "happiness_amount" && value >> 0) value = "+" + value;
                                             if (categoryBoosts.includes(type)) value += "%";
                                             AgeData.push(value)
@@ -285,17 +275,17 @@ function convertOld(Building) {
                                         }
                                     }
                                 } else {
-                                    if (Bonus["revenue"][Age]) {
-                                        for (res in Bonus["revenue"][Age]["resources"]) {
-                                            AgeData.push(numberWithCommas(Bonus["revenue"][Age]["resources"][res]))
+                                    if (Bonus.revenue[Age]) {
+                                        for (res in Bonus.revenue[Age].resources) {
+                                            AgeData.push(numberWithCommas(Bonus.revenue[Age].resources[res]))
                                             if (createHeader) {
                                                 Building.header.push(headerExtra["Set " + Bonus["level"]] + prodHeaders[res]);
                                             }
                                         }
                                     } else {
-                                        if (Bonus["revenue"]["AllAge"]) {
-                                            for (res in Bonus["revenue"]["AllAge"]["resources"]) {
-                                                AgeData.push(numberWithCommas(Bonus["revenue"]["AllAge"]["resources"][res]))
+                                        if (Bonus.revenue.AllAge) {
+                                            for (res in Bonus.revenue.AllAge.resources) {
+                                                AgeData.push(numberWithCommas(Bonus.revenue.AllAge.resources[res]))
                                                 if (createHeader) {
                                                     Building.header.push(headerExtra["Set " + Bonus["level"]] + prodHeaders[res]);
                                                 }
@@ -307,43 +297,43 @@ function convertOld(Building) {
                             break;
                         //Chain
                         case "ChainLinkAbility":
-                            for (let bonus in Ability["bonuses"]) {
-                                var Bonus = Ability["bonuses"][bonus];
-                                if (Object.keys(Bonus["boost"]).length > 0) {
-                                    if (Bonus["boost"][Age]) {
-                                        value = numberWithCommas(Bonus["boost"][Age]["value"]);
-                                        type = Bonus["boost"][Age]["type"];
+                            for (let bonus in Ability.bonuses) {
+                                let Bonus = Ability.bonuses[bonus];
+                                if (Object.keys(Bonus.boost).length > 0) {
+                                    if (Bonus.boost[Age]) {
+                                        value = numberWithCommas(Bonus.boost[Age].value);
+                                        type = Bonus.boost[Age].type;
                                         if (type == "happiness_amount" && value >> 0) value = "+" + value;
                                         if (categoryBoosts.includes(type)) value += "%";
                                         AgeData.push(value)
                                         if (createHeader) {
-                                            Building.header.push(headerExtra["Chain"] + prodHeaders[type]);
+                                            Building.header.push(headerExtra.Chain + prodHeaders[type]);
                                         }
 
                                     } else {
-                                        value = numberWithCommas(Bonus["boost"]["AllAge"]["value"]);
-                                        type = Bonus["boost"]["AllAge"]["type"];
+                                        value = numberWithCommas(Bonus.boost.AllAge.value);
+                                        type = Bonus.boost.AllAge.type;
                                         if (type == "happiness_amount" && value >> 0) value = "+" + value;
                                         if (categoryBoosts.includes(type)) value += "%";
                                         AgeData.push(value)
                                         if (createHeader) {
-                                            Building.header.push(headerExtra["Chain"] + prodHeaders[type]);
+                                            Building.header.push(headerExtra.Chain + prodHeaders[type]);
                                         }
                                     }
                                 } else {
-                                    if (Bonus["revenue"][Age]) {
-                                        for (res in Bonus["revenue"][Age]["resources"]) {
-                                            AgeData.push(numberWithCommas(Bonus["revenue"][Age]["resources"][res]))
+                                    if (Bonus.revenue[Age]) {
+                                        for (res in Bonus.revenue[Age].resources) {
+                                            AgeData.push(numberWithCommas(Bonus.revenue[Age].resources[res]))
                                             if (createHeader) {
-                                                Building.header.push(headerExtra["Chain"] + prodHeaders[res]);
+                                                Building.header.push(headerExtra.Chain + prodHeaders[res]);
                                             }
                                         }
                                     } else {
-                                        if (Bonus["revenue"]["AllAge"]) {
-                                            for (res in Bonus["revenue"]["AllAge"]["resources"]) {
-                                                AgeData.push(numberWithCommas(Bonus["revenue"]["AllAge"]["resources"][res]))
+                                        if (Bonus.revenue.AllAge) {
+                                            for (res in Bonus.revenue.AllAge.resources) {
+                                                AgeData.push(numberWithCommas(Bonus.revenue.AllAge.resources[res]))
                                                 if (createHeader) {
-                                                    Building.header.push(headerExtra["Chain"] + prodHeaders[res]);
+                                                    Building.header.push(headerExtra.Chain + prodHeaders[res]);
                                                 }
                                             }
                                         }
@@ -353,25 +343,25 @@ function convertOld(Building) {
                             break;
                         //Random Production (Crow's Nest)
                         case "RandomChestRewardAbility":
-                            for (let reward in Ability["rewards"][Age]["possible_rewards"]) {
-                                var Reward = Ability["rewards"][Age]["possible_rewards"][reward];
-                                switch (Reward["reward"]["type"]) {
+                            for (let reward in Ability.rewards[Age].possible_rewards) {
+                                let Reward = Ability.rewards[Age].possible_rewards[reward];
+                                switch (Reward.reward.type) {
                                     case "resource":
-                                        AgeData.push(numberWithCommas(Reward["reward"]["amount"]));
+                                        AgeData.push(numberWithCommas(Reward.reward.amount));
                                         if (createHeader) {
-                                            Building.header.push(Reward["drop_chance"] + "% for<br>" + prodHeaders[Reward["reward"]["subType"]]);
+                                            Building.header.push(Reward.drop_chance + "% for<br>" + prodHeaders[Reward.reward.subType]);
                                         }
                                         break;
                                     case "chest":
-                                        AgeData.push(numberWithCommas(Reward["reward"]["possible_rewards"][1]["reward"]["amount"]));
+                                        AgeData.push(numberWithCommas(Reward.reward.possible_rewards[1].reward.amount));
                                         if (createHeader) {
-                                            Building.header.push(Reward["drop_chance"] + "% for<br>" + prodHeaders[Reward["reward"]["possible_rewards"][1]["reward"]["type"]]);
+                                            Building.header.push(Reward.drop_chance + "% for<br>" + prodHeaders[Reward.reward.possible_rewards[1].reward.type]);
                                         }
                                         break;
                                     case "blueprint":
-                                        AgeData.push(numberWithCommas(Reward["reward"]["amount"]));
+                                        AgeData.push(numberWithCommas(Reward.reward.amount));
                                         if (createHeader) {
-                                            Building.header.push(Reward["drop_chance"] + "% for<br>" + prodHeaders["BP-Production"]);
+                                            Building.header.push(Reward.drop_chance + "% for<br>" + prodHeaders["BP-Production"]);
                                         }
                                         break;
 
