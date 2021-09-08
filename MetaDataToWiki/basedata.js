@@ -21,19 +21,20 @@ const ages = {
 }
 
 const headerExtra = {
-    "Set 1": "1<sup>st</sup> Bonus",
-    "Set 2": "2<sup>nd</sup> Bonus",
-    "Set 3": "3<sup>rd</sup> Bonus",
-    "Set 4": "4<sup>th</sup> Bonus",
-    "Set 5": "5<sup>th</sup> Bonus",
-    "Set 6": "6<sup>th</sup> Bonus",
-    "Chain": "if chained to",
-    "Prod 0": "{{ITIM}}5m",
-    "Prod 1": "{{ITIM}}15m",
-    "Prod 2": "{{ITIM}}1h",
-    "Prod 3": "{{ITIM}}4h",
-    "Prod 4": "{{ITIM}}8h",
-    "Prod 5": "{{ITIM}}24h",
+    "Set 1": "1<sup>st</sup> Bonus<br>",
+    "Set 2": "2<sup>nd</sup> Bonus<br>",
+    "Set 3": "3<sup>rd</sup> Bonus<br>",
+    "Set 4": "4<sup>th</sup> Bonus<br>",
+    "Set 5": "5<sup>th</sup> Bonus<br>",
+    "Set 6": "6<sup>th</sup> Bonus<br>",
+    "Chain": "if chained to<br>",
+    "Prod 0": "{{ITIM}}5m<br>",
+    "Prod 1": "{{ITIM}}15m<br>",
+    "Prod 2": "{{ITIM}}1h<br>",
+    "Prod 3": "{{ITIM}}4h<br>",
+    "Prod 4": "{{ITIM}}8h<br>",
+    "Prod 5": "{{ITIM}}24h<br>",
+    "mot":"{{ifMotivated}}<br>",
 }
 
 
@@ -72,7 +73,6 @@ const prodHeaders = {                       //translates production options to w
     "def_boost_attacker": "{{ADEF}}",
     "coin_production": "{{ICOI}} Boost",
     "supply_production": "{{ISUP}} Boost",
-    
 }
 
 const categoryGoods = [
@@ -98,6 +98,11 @@ const categoryBoosts = [
 
 const multiageWiki = {
     "tableDef":'{| class="FoETable AgeTable ProdTable"',
-    "styleFirstRow" : '!  style="width:50px; | ',
-    "styleRow" : '!  style="width:70px; | ',
+    "styleFirstRow" : '!  style="width:50px;" | ',
+    "styleRow" : '!  style="width:70px;" | ',
+}
+
+const specialProducts = {
+    "Fragment of One Up Kit": "[[OneUpKitFragment.png|20px|Fragments]]",
+
 }

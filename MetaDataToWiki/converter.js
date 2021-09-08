@@ -85,8 +85,7 @@ function createSelectOption(i, row, shouldFilterForType, typeToFilterFor, onlySp
  * @param {Array<HTMLOptionElement>}options
  */
 function sortSelect(selElem, options) {
-    console.log(options[0])
-    options.sort((x, y) => x.text.localeCompare(y.text));
+     options.sort((x, y) => x.text.localeCompare(y.text));
     // Clear the old elements
     while (selElem.options.length > 0) {
         selElem.options[0] = null;

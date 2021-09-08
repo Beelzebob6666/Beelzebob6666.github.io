@@ -32,7 +32,6 @@ function convertOld(Building) {
         }
         //handle special case, should there be both AddResources abilities
         if (AbilityIndex["AddResourcesAbility"] >= 0 && AbilityIndex["AddResourcesWhenMotivatedAbility"] >= 0) {
-            AbilityIndex["AddResourcesWhenMotivatedAbility"] = -1;
             bothAddRes = true;
         }
     }
@@ -80,11 +79,12 @@ function convertOld(Building) {
                         var hap = Level["provided_happiness"];
                         if (hap) {
                             var hapeff = Math.round(hap / Building.size)
-                            hap = numberWithCommas(hap);
-                            hapeff = numberWithCommas(hapeff);
                             if (hap > 0) {
-                                hap = "+" + hap;
-                                hapeff = "+" + hapeff;
+                                hap = "+" + numberWithCommas(hap);
+                                hapeff = "+" + numberWithCommas(hapeff);
+                            } else {
+                                hap = numberWithCommas(hap);
+                                hapeff = numberWithCommas(hapeff);
                             }
                             AgeData.push(hap);
                             if (Building.size != 1) {
@@ -124,7 +124,7 @@ function convertOld(Building) {
                             var Prod = Level.production_values[prod];
                             AgeData.push(numberWithCommas(Prod["value"]));
                             if (createHeader) {
-                                Building.header.push(headerExtra["Prod " + prod] + "<br>" + prodHeaders[Prod["type"]]);
+                                Building.header.push(headerExtra["Prod " + prod] + prodHeaders[Prod["type"]]);
                             }
                         }
                     }
@@ -143,9 +143,11 @@ function convertOld(Building) {
                             var goods = 0;
 
                             if (bothAddRes) {
-                                Ability2 = Building.json.abilities[AbilityIndex["AddResourcesWhenMotivatedAbility"]];
+                                if (ability=="AddResourcesWhenMotivatedAbility") {
+                                    break;
+                                }
+                                var Ability2 = Building.json.abilities[AbilityIndex["AddResourcesWhenMotivatedAbility"]];
                             }
-
 
                             for (let res in prodHeaders) {//test the resources for possible resources listed in prodheaders
                                 value = 0;
@@ -266,7 +268,7 @@ function convertOld(Building) {
                                         if (categoryBoosts.includes(type)) value += "%";
                                         AgeData.push(value)
                                         if (createHeader) {
-                                            Building.header.push(headerExtra["Set " + Bonus["level"]] + "<br>" + prodHeaders[type]);
+                                            Building.header.push(headerExtra["Set " + Bonus["level"]] + prodHeaders[type]);
                                         }
                                     } else {
                                         if (Bonus["boost"]["AllAge"]) {
@@ -276,7 +278,7 @@ function convertOld(Building) {
                                             if (categoryBoosts.includes(type)) value += "%";
                                             AgeData.push(value)
                                             if (createHeader) {
-                                                Building.header.push(headerExtra["Set " + Bonus["level"]] + "<br>" + prodHeaders[type]);
+                                                Building.header.push(headerExtra["Set " + Bonus["level"]] + prodHeaders[type]);
                                             }
                                         }
                                     }
@@ -285,7 +287,7 @@ function convertOld(Building) {
                                         for (res in Bonus["revenue"][Age]["resources"]) {
                                             AgeData.push(numberWithCommas(Bonus["revenue"][Age]["resources"][res]))
                                             if (createHeader) {
-                                                Building.header.push(headerExtra["Set " + Bonus["level"]] + "<br>" + prodHeaders[res]);
+                                                Building.header.push(headerExtra["Set " + Bonus["level"]] + prodHeaders[res]);
                                             }
                                         }
                                     } else {
@@ -293,7 +295,7 @@ function convertOld(Building) {
                                             for (res in Bonus["revenue"]["AllAge"]["resources"]) {
                                                 AgeData.push(numberWithCommas(Bonus["revenue"]["AllAge"]["resources"][res]))
                                                 if (createHeader) {
-                                                    Building.header.push(headerExtra["Set " + Bonus["level"]] + "<br>" + prodHeaders[res]);
+                                                    Building.header.push(headerExtra["Set " + Bonus["level"]] + prodHeaders[res]);
                                                 }
                                             }
                                         }
@@ -313,7 +315,7 @@ function convertOld(Building) {
                                         if (categoryBoosts.includes(type)) value += "%";
                                         AgeData.push(value)
                                         if (createHeader) {
-                                            Building.header.push(headerExtra["Chain"] + "<br>" + prodHeaders[type]);
+                                            Building.header.push(headerExtra["Chain"] + prodHeaders[type]);
                                         }
 
                                     } else {
@@ -323,7 +325,7 @@ function convertOld(Building) {
                                         if (categoryBoosts.includes(type)) value += "%";
                                         AgeData.push(value)
                                         if (createHeader) {
-                                            Building.header.push(headerExtra["Chain"] + "<br>" + prodHeaders[type]);
+                                            Building.header.push(headerExtra["Chain"] + prodHeaders[type]);
                                         }
                                     }
                                 } else {
@@ -331,7 +333,7 @@ function convertOld(Building) {
                                         for (res in Bonus["revenue"][Age]["resources"]) {
                                             AgeData.push(numberWithCommas(Bonus["revenue"][Age]["resources"][res]))
                                             if (createHeader) {
-                                                Building.header.push(headerExtra["Chain"] + "<br>" + prodHeaders[res]);
+                                                Building.header.push(headerExtra["Chain"] + prodHeaders[res]);
                                             }
                                         }
                                     } else {
@@ -339,7 +341,7 @@ function convertOld(Building) {
                                             for (res in Bonus["revenue"]["AllAge"]["resources"]) {
                                                 AgeData.push(numberWithCommas(Bonus["revenue"]["AllAge"]["resources"][res]))
                                                 if (createHeader) {
-                                                    Building.header.push(headerExtra["Chain"] + "<br>" + prodHeaders[res]);
+                                                    Building.header.push(headerExtra["Chain"] + prodHeaders[res]);
                                                 }
                                             }
                                         }
