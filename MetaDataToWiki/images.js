@@ -4,7 +4,7 @@ function generateBuildingFileName(buildingName) {
     if (wikiName.search("Lv.") >= 0) {
         const x = wikiName.search("-_");
         if (x <= 7 && x >= 0) {
-            wikiname = wikiname.substr(x + 2) + "_Lvl_" + wikiname.substr(4, x - 5);
+            wikiName = wikiName.substr(x + 2) + "_Lvl_" + wikiName.substr(4, x - 5);
         }
     }
     return wikiName + ".png"
@@ -26,7 +26,7 @@ function findImages(Building) {
             const Product = Building.json.available_products[product];
             let wikiName = Building.json.name + "_" + j;
             wikiName = wikiName.replace(" ", "_") + ".png"
-            link = "https://foezz.innogamescdn.com/assets/city/gui/production_icons/" + Product["asset_name"] + ".png"
+            link = "https://foezz.innogamescdn.com/assets/city/gui/production_icons/" + Product.asset_name + ".png"
             addImg(link, wikiName);
         }
     }
@@ -52,7 +52,8 @@ function removeImg(img) {
 
 function selectAll() {
     const all = document.getElementsByClassName("forSelection");
-    for (let i = 0; i < all.length; i++) {
+    let k= all.length;
+    for (let i = 0; i < k; i++) {
         selectImg(all[0]);
     }
 
