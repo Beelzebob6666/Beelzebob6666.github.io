@@ -147,5 +147,6 @@
           'X_TomorrowEra_Landmark1': 28,
           'X_TomorrowEra_Landmark2': 30,
           'X_VirtualFuture_Landmark1': 24,
-          'X_VirtualFuture_Landmark2': 36
+          'X_VirtualFuture_Landmark2': 36,
+          'X_SpaceAgeVenus_Landmark1': 24,
         }
