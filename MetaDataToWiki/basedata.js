@@ -71,8 +71,8 @@ const prodHeaders = {                       //translates production options to w
     "def_boost_defender": "{{DEF}}",
     "att_boost_defender": "{{DATT}}",
     "def_boost_attacker": "{{ADEF}}",
-    "coin_production": "{{ICOI}} Boost",
-    "supply_production": "{{ISUP}} Boost",
+    "coin_production": "{{CoinBoost}}",
+    "supply_production": "{{SupplyBoost}}",
 }
 
 const NewAbilityIndex = {                          //determines the order in which the abilities are parsed in convertOld
