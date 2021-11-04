@@ -320,7 +320,8 @@ function convertOld(Building) {
                                             Building.header.push(headerExtra.Chain + prodHeaders[type]);
                                         }
                                     }
-                                } else {
+                                }
+                                if (Object.keys(Bonus.revenue).length > 0) {
                                     if (Bonus.revenue[Age]) {
                                         for (res in Bonus.revenue[Age].resources) {
                                             AgeData.push(numberWithCommas(Bonus.revenue[Age].resources[res]))
