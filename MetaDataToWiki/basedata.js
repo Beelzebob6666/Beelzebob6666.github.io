@@ -1,3 +1,5 @@
+var chainOutput = false;
+
 const ages = {
     "BronzeAge": "'''BA'''",
     "IronAge": "'''IA'''",
