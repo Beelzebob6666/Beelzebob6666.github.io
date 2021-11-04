@@ -1,3 +1,5 @@
+var chainOutput = false;
+
 const ages = {
     "BronzeAge": "'''BA'''",
     "IronAge": "'''IA'''",
@@ -28,6 +30,12 @@ const headerExtra = {
     "Set 5": "5<sup>th</sup> Bonus<br>",
     "Set 6": "6<sup>th</sup> Bonus<br>",
     "Chain": "if chained to<br>",
+    "Chain 1": "with length 1+<br>",
+    "Chain 2": "with length 2+<br>",
+    "Chain 3": "with length 3+<br>",
+    "Chain 4": "with length 4+<br>",
+    "Chain 5": "with length 5+<br>",
+    "Chain 6": "with length 6+<br>",
     "Prod 0": "{{ITIM}}5m<br>",
     "Prod 1": "{{ITIM}}15m<br>",
     "Prod 2": "{{ITIM}}1h<br>",

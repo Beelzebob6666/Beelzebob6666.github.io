@@ -307,7 +307,7 @@ function convertOld(Building) {
                                         if (categoryBoosts.includes(type)) value += "%";
                                         AgeData.push(value)
                                         if (createHeader) {
-                                            Building.header.push(headerExtra.Chain + prodHeaders[type]);
+                                            Building.header.push(headerExtra.Chain + (chainOutput ? headerExtra["Chain " + Bonus["level"]] : "") + prodHeaders[type]);
                                         }
 
                                     } else {
@@ -317,7 +317,7 @@ function convertOld(Building) {
                                         if (categoryBoosts.includes(type)) value += "%";
                                         AgeData.push(value)
                                         if (createHeader) {
-                                            Building.header.push(headerExtra.Chain + prodHeaders[type]);
+                                            Building.header.push(headerExtra.Chain + (chainOutput ? headerExtra["Chain " + Bonus["level"]] : "") + prodHeaders[type]);
                                         }
                                     }
                                 }
@@ -326,7 +326,7 @@ function convertOld(Building) {
                                         for (res in Bonus.revenue[Age].resources) {
                                             AgeData.push(numberWithCommas(Bonus.revenue[Age].resources[res]))
                                             if (createHeader) {
-                                                Building.header.push(headerExtra.Chain + prodHeaders[res]);
+                                                Building.header.push(headerExtra.Chain + (chainOutput ? headerExtra["Chain " + Bonus["level"]] : "") + prodHeaders[res]);
                                             }
                                         }
                                     } else {
@@ -334,7 +334,7 @@ function convertOld(Building) {
                                             for (res in Bonus.revenue.AllAge.resources) {
                                                 AgeData.push(numberWithCommas(Bonus.revenue.AllAge.resources[res]))
                                                 if (createHeader) {
-                                                    Building.header.push(headerExtra.Chain + prodHeaders[res]);
+                                                    Building.header.push(headerExtra.Chain + (chainOutput ? headerExtra["Chain " + Bonus["level"]] : "") + prodHeaders[res]);
                                                 }
                                             }
                                         }

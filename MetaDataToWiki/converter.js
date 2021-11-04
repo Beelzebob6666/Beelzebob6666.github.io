@@ -131,3 +131,7 @@ $("#Buildings").focusout(function () {
         $(this).focus();
     }
 });
+
+function setChainOutput() {
+    chainOutput = !chainOutput;
+}
