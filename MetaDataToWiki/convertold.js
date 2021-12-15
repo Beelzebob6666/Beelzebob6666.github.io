@@ -232,19 +232,22 @@ function convertOld(Building) {
                         case "BoostAbility":
                             for (let boost in Ability.boostHints) {
                                 let Boost = Ability.boostHints[boost];
-                                let x = 0;
+                                let value = 0;
                                 let type = "";
                                 if (Boost.boostHintEraMap[Age]) {
-                                    x += AgeData.push(Boost.boostHintEraMap[Age].value);
+                                    value += Boost.boostHintEraMap[Age].value;
                                     type = prodHeaders[Boost.boostHintEraMap[Age].type]
                                 }
                                 if (Boost.boostHintEraMap.AllAge) {
-                                    x += AgeData.push(Boost.boostHintEraMap.AllAge.value);
+                                    value += Boost.boostHintEraMap.AllAge.value;
                                     type = prodHeaders[Boost.boostHintEraMap.AllAge.type]
                                 }
-                                x += "%";
-                                if (createHeader) {
-                                    Building.header.push(type);
+                                if (value > 0) {
+                                    value += "%";
+                                    AgeData.push(x);
+                                    if (createHeader) {
+                                        Building.header.push(type);
+                                    }
                                 }
                             }
                             break;
