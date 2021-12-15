@@ -244,7 +244,7 @@ function convertOld(Building) {
                                 }
                                 if (value > 0) {
                                     value += "%";
-                                    AgeData.push(x);
+                                    AgeData.push(value);
                                     if (createHeader) {
                                         Building.header.push(type);
                                     }
