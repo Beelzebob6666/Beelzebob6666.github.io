@@ -135,3 +135,9 @@ $("#Buildings").focusout(function () {
 function setChainOutput() {
     chainOutput = !chainOutput;
 }
+
+function fileKey(e) {
+    if (e.code == "Enter") {
+        getData()
+    }
+}

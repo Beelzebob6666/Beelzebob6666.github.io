@@ -28,7 +28,8 @@
         <div>
             Link to meta-data file: <input type="text" id="rawdata"
                 value=""
-                maxlength="200" />
+                maxlength="200" 
+                onkeypress="fileKey(event)"/>
             <button id="getData" onclick="getData()">Get Data</button>
             <br><br>
             Select building from list: <select id="Buildings"></select>
