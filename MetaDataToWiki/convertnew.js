@@ -96,7 +96,8 @@ function convertNew() {
                                 for (let r in ProdJson[i].products) {
                                     let randomProd = ProdJson[i].products[r];
                                     let lookupJson = AgeJson.lookup.rewards[randomProd.product.reward.id];
-                                    productionRandom.push([ProdJson[i].onlyWhenMotivated, lookupJson.name, lookupJson.amount, randomProd.dropChance*100 + "%"])
+                                    productionRandom.push([ProdJson[i].onlyWhenMotivated, lookupJson.name, lookupJson.amount, randomProd.dropChance*100 + "%"]);
+                                    console.log(productionRandom);
                                 }
                                 break;
                         }
@@ -149,7 +150,7 @@ function convertNew() {
                     if (productionRandom[i][0]) {
                         AgeData.push(numberWithCommas(productionRandom[i][2]))
                         if (createHeader) {
-                            Building.header.push(((productionRandom[i][0]) ? headerExtra.mot : "") + productionRandom[i][3] + headerExtra.chance + specialProducts[productionRandom[i][1]]);
+                            Building.header.push(((productionRandom[i][0]) ? headerExtra.mot : "") + productionRandom[i][3] + headerExtra.chance + (specialProducts[productionRandom[i][1]] ? specialProducts[productionRandom[i][1]] : productionRandom[i][1]));
                         }
                     }
                 }
