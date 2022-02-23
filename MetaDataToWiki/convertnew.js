@@ -12,6 +12,8 @@ function convertNew() {
             const ProductionsRaw = {...NewProductions};
             const ProductionsMotivated = {...NewProductions};
             var productionSpecial = [];
+            var productionRandom = [];
+            
            
             //Age
             if (ages[Age]) {
@@ -87,8 +89,16 @@ function convertNew() {
 
                                 break;
                             case "genericReward":
-                                lookupJson = AgeJson.lookup.rewards[ProdJson[i].reward.id]
+                                let lookupJson = AgeJson.lookup.rewards[ProdJson[i].reward.id];
                                 productionSpecial.push([ProdJson[i].onlyWhenMotivated, lookupJson.name, lookupJson.amount])
+                                break;
+                            case "random":
+                                for (let r in ProdJson[i].products) {
+                                    let randomProd = ProdJson[i].products[r];
+                                    let lookupJson = AgeJson.lookup.rewards[randomProd.product.reward.id];
+                                    productionRandom.push([ProdJson[i].onlyWhenMotivated, lookupJson.name, lookupJson.amount, randomProd.dropChance*100 + "%"]);
+                                    console.log(productionRandom);
+                                }
                                 break;
                         }
                         
@@ -112,6 +122,14 @@ function convertNew() {
                         }
                     }
                 }
+                for (let i in productionRandom) {
+                    if (!productionRandom[i][0]) {
+                        AgeData.push(numberWithCommas(productionRandom[i][2]))
+                        if (createHeader) {
+                            Building.header.push(((productionRandom[i][0]) ? headerExtra.mot : "") + productionRandom[i][3] + headerExtra.chance + specialProducts[productionRandom[i][1]]);
+                        }
+                    }
+                }
                 for (let prod in ProductionsMotivated) {
                     if (ProductionsMotivated[prod]>0) {
                         AgeData.push(numberWithCommas(ProductionsMotivated[prod]));
@@ -125,6 +143,14 @@ function convertNew() {
                         AgeData.push(numberWithCommas(productionSpecial[i][2]))
                         if (createHeader) {
                             Building.header.push(((productionSpecial[i][0]) ? headerExtra.mot : "") + specialProducts[productionSpecial[i][1]]);
+                        }
+                    }
+                }
+                for (let i in productionRandom) {
+                    if (productionRandom[i][0]) {
+                        AgeData.push(numberWithCommas(productionRandom[i][2]))
+                        if (createHeader) {
+                            Building.header.push(((productionRandom[i][0]) ? headerExtra.mot : "") + productionRandom[i][3] + headerExtra.chance + (specialProducts[productionRandom[i][1]] ? specialProducts[productionRandom[i][1]] : productionRandom[i][1]));
                         }
                     }
                 }

@@ -20,6 +20,7 @@ const ages = {
     "SpaceAgeMars": "'''SAM'''",
     "SpaceAgeAsteroidBelt": "'''SAAB'''",
     "SpaceAgeVenus": "'''SAV'''",
+    "SpaceAgeJupiterMoon": "'''SAJM'''",
 }
 
 const headerExtra = {
@@ -43,6 +44,7 @@ const headerExtra = {
     "Prod 4": "{{ITIM}}8h<br>",
     "Prod 5": "{{ITIM}}24h<br>",
     "mot":"{{ifMotivated}}<br>",
+    "chance":" for<br>"
 }
 
 
@@ -124,7 +126,9 @@ const multiageWiki = {
 
 const specialProducts = {
     "Fragment of One Up Kit": "[[File:OneUpKitFragment.png|20px|link=Fragments|Fragment of One Up Kit]]",
-
+    "4 Fragments of Mass Self-Aid Kit": "[[File:MassSelfAidFragment.png|20px|link=Fragments|Fragment of Mass Self Aid Kit]]",
+    "3 Fragments of One Up Kit": "[[File:OneUpKitFragment.png|20px|link=Fragments|Fragment of One Up Kit]]",
+    "10 Fragments of 30m Mass Supply Rush": "[[File:MassSupplyRushFragment.png|20px|link=Fragment|Fragment of 30min Mass Supply Rush]]",
 }
 
 const NewProductions = {                  // determines order of productions in convertNew        
