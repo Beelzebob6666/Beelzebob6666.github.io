@@ -20,6 +20,7 @@ const ages = {
     "SpaceAgeMars": "'''SAM'''",
     "SpaceAgeAsteroidBelt": "'''SAAB'''",
     "SpaceAgeVenus": "'''SAV'''",
+    "SpaceAgeJupiterMoon": "'''SAJM'''",
 }
 
 const headerExtra = {
@@ -43,6 +44,7 @@ const headerExtra = {
     "Prod 4": "{{ITIM}}8h<br>",
     "Prod 5": "{{ITIM}}24h<br>",
     "mot":"{{ifMotivated}}<br>",
+    "chance":" for<br>"
 }
 
 
