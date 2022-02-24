@@ -96,7 +96,7 @@ function convertNew() {
                                 for (let r in ProdJson[i].products) {
                                     let randomProd = ProdJson[i].products[r];
                                     let lookupJson = AgeJson.lookup.rewards[randomProd.product.reward.id];
-                                    productionRandom.push([ProdJson[i].onlyWhenMotivated, lookupJson.name, lookupJson.amount, randomProd.dropChance*100 + "%"]);
+                                    productionRandom.push([ProdJson[i].onlyWhenMotivated, lookupJson.name, lookupJson.amount, Math.floor(randomProd.dropChance*1000)/10 + "%"]);
                                     console.log(productionRandom);
                                 }
                                 break;
@@ -118,7 +118,7 @@ function convertNew() {
                     if (!productionSpecial[i][0]) {
                         AgeData.push(numberWithCommas(productionSpecial[i][2]))
                         if (createHeader) {
-                            Building.header.push(((productionSpecial[i][0]) ? headerExtra.mot : "") + specialProducts[productionSpecial[i][1]]);
+                            Building.header.push(((productionSpecial[i][0]) ? headerExtra.mot : "") + getSpecial(productionSpecial[i][1]));
                         }
                     }
                 }
@@ -126,7 +126,7 @@ function convertNew() {
                     if (!productionRandom[i][0]) {
                         AgeData.push(numberWithCommas(productionRandom[i][2]))
                         if (createHeader) {
-                            Building.header.push(((productionRandom[i][0]) ? headerExtra.mot : "") + productionRandom[i][3] + headerExtra.chance + specialProducts[productionRandom[i][1]]);
+                            Building.header.push(((productionRandom[i][0]) ? headerExtra.mot : "") + productionRandom[i][3] + headerExtra.chance + getSpecial(productionRandom[i][1]));
                         }
                     }
                 }
@@ -142,7 +142,7 @@ function convertNew() {
                     if (productionSpecial[i][0]) {
                         AgeData.push(numberWithCommas(productionSpecial[i][2]))
                         if (createHeader) {
-                            Building.header.push(((productionSpecial[i][0]) ? headerExtra.mot : "") + specialProducts[productionSpecial[i][1]]);
+                            Building.header.push(((productionSpecial[i][0]) ? headerExtra.mot : "") + getSpecial(productionSpecial[i][1]));
                         }
                     }
                 }
@@ -150,7 +150,7 @@ function convertNew() {
                     if (productionRandom[i][0]) {
                         AgeData.push(numberWithCommas(productionRandom[i][2]))
                         if (createHeader) {
-                            Building.header.push(((productionRandom[i][0]) ? headerExtra.mot : "") + productionRandom[i][3] + headerExtra.chance + (specialProducts[productionRandom[i][1]] ? specialProducts[productionRandom[i][1]] : productionRandom[i][1]));
+                            Building.header.push(((productionRandom[i][0]) ? headerExtra.mot : "") + productionRandom[i][3] + headerExtra.chance + getSpecial(productionRandom[i][1]));
                         }
                     }
                 }
@@ -184,4 +184,16 @@ function getResources(products, Productions, goodsDefault) {
         Productions[prodX] += products[prod];
     }    
     return Productions;
+}
+
+function getSpecial(SpecialString) {
+    y = SpecialString.replace(" of ", "");
+    y = y.replace("Fragments", "Fragment");
+    y = y.replace(/\d*? (.*?)/,"$1");
+    y = y.replaceAll(" ","");
+
+    x = specialProducts[y];
+    if (!x) x = SpecialString;
+
+    return x
 }
