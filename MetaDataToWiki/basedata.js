@@ -124,7 +124,7 @@ const multiageWiki = {
     "styleRow" : '!  style="width:70px;" | ',
 }
 
-const specialProducts = {
+const specialProducts = {   // Reward strings - removed " of ", made "Fragments" singular, removed lading numbers, removed spaces
     "FragmentOneUpKit": "[[File:OneUpKitFragment.png|20px|link=Fragments|Fragment of One Up Kit]]",
     "FragmentMassSelf-AidKit": "[[File:MassSelfAidFragment.png|20px|link=Fragments|Fragment of Mass Self Aid Kit]]",
     "Fragment30mMassSupplyRush": "[[File:MassSupplyRushFragment.png|20px|link=Fragment|Fragment of 30min Mass Supply Rush]]",
