@@ -68,6 +68,7 @@ const prodHeaders = {                       //translates production options to w
     "Goods_Sum": "{{Goods}}",           // Goods_Sum has to be the last item that translates to {{Goods}}
                                         //and defines the position of gooods in the resulting table
                                         //Goods_Sum may not occur in the categoryGoods variable below!!!
+    "all_goods_of_previous_age": "{{PEGoods}}",
     "strategy_points": "{{FP}}",
     "points": "{{Prestige}}",
     "premium": "{{IDIA}}",
@@ -83,6 +84,7 @@ const prodHeaders = {                       //translates production options to w
     "def_boost_attacker": "{{ADEF}}",
     "coin_production": "{{CoinBoost}}",
     "supply_production": "{{SupplyBoost}}",
+ 
 }
 
 const NewAbilityIndex = {                          //determines the order in which the abilities are parsed in convertOld
@@ -135,6 +137,7 @@ const NewProductions = {                  // determines order of productions in 
     "supplies": 0,
     "medals": 0,
     "goods": 0,
+    "all_goods_of_previous_age": 0,
     "strategy_points":0,
     "premium":0,
     "clan_power" :0,
