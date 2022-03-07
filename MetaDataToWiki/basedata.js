@@ -130,6 +130,7 @@ const specialProducts = {   // Reward strings - removed " of ", made "Fragments"
     "FragmentOneUpKit": "[[File:OneUpKitFragment.png|20px|link=Fragments|Fragment of One Up Kit]]",
     "FragmentMassSelf-AidKit": "[[File:MassSelfAidFragment.png|20px|link=Fragments|Fragment of Mass Self Aid Kit]]",
     "Fragment30mMassSupplyRush": "[[File:MassSupplyRushFragment.png|20px|link=Fragment|Fragment of 30min Mass Supply Rush]]",
+    "Fragment20%AttackerBoost": "[[File:LargeAttackBoostFragment.png|20px|link=Fragment|Fragment Large Attack Boost]]"
 }
 
 const NewProductions = {                  // determines order of productions in convertNew        
