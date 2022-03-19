@@ -44,7 +44,8 @@ const headerExtra = {
     "Prod 4": "{{ITIM}}8h<br>",
     "Prod 5": "{{ITIM}}24h<br>",
     "mot":"{{ifMotivated}}<br>",
-    "chance":" for<br>"
+    "chance":" for<br>",
+    "DP":"{{2xWhenMotivated}}<br>"
 }
 
 
