@@ -94,7 +94,7 @@ function convertOld(Building) {
                     if (Level.produced_money) {
                         AgeData.push(numberWithCommas(Level.produced_money))
                         if (createHeader) {
-                            Building.header.push(headerExtra.DP + prodHeaders.produced_money);
+                            Building.header.push((DP ? headerExtra.DP : "") + prodHeaders.produced_money);
                         }
                     }
                     //ranking points
@@ -107,7 +107,7 @@ function convertOld(Building) {
                     if (Level.clan_power) {
                         AgeData.push(numberWithCommas(Level.clan_power))
                         if (createHeader) {
-                            Building.header.push(headerExtra.DP + prodHeaders.clan_power);
+                            Building.header.push((DP ? headerExtra.DP : "") + prodHeaders.clan_power);
                         }
                     }
                     //Productions of Production buildings
