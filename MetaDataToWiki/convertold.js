@@ -9,20 +9,20 @@ function convertOld(Building) {
 
     const AbilityIndex = {...NewAbilityIndex};
 
-    var bothAddRes = false;
-    var p = "";
-    var value
-    var type
+    var p = "",
+        value,
+        type,
+        DP = false;
 
     //check which abilities are included
     if (Building.json.abilities) {
 
         for (let ability in Building.json.abilities) {
+            if (Building.json.abilities[ability].__class__ === "DoubleProductionWhenMotivatedAbility") {
+                DP = true;
+                continue;
+            }
             AbilityIndex[Building.json.abilities[ability].__class__] = ability;
-        }
-        //handle special case, should there be both AddResources abilities
-        if (AbilityIndex.AddResourcesAbility >= 0 && AbilityIndex.AddResourcesWhenMotivatedAbility >= 0) {
-            bothAddRes = true;
         }
     }
 
@@ -94,7 +94,7 @@ function convertOld(Building) {
                     if (Level.produced_money) {
                         AgeData.push(numberWithCommas(Level.produced_money))
                         if (createHeader) {
-                            Building.header.push(prodHeaders.produced_money);
+                            Building.header.push(headerExtra.DP + prodHeaders.produced_money);
                         }
                     }
                     //ranking points
@@ -107,7 +107,7 @@ function convertOld(Building) {
                     if (Level.clan_power) {
                         AgeData.push(numberWithCommas(Level.clan_power))
                         if (createHeader) {
-                            Building.header.push(prodHeaders.clan_power);
+                            Building.header.push(headerExtra.DP + prodHeaders.clan_power);
                         }
                     }
                     //Productions of Production buildings
@@ -128,18 +128,36 @@ function convertOld(Building) {
             for (let ability in AbilityIndex) {
                 if (AbilityIndex[ability] >= 0) {
                     let Ability = Building.json.abilities[AbilityIndex[ability]];
+                    let goods = 0;
 
                     switch (ability) {
                         case "AddResourcesAbility":
-                        case "AddResourcesWhenMotivatedAbility":
-                            let goods = 0;
-
-                            if (bothAddRes) {
-                                if (ability=="AddResourcesWhenMotivatedAbility") {
-                                    break;
+                            for (let res in prodHeaders) {//test the resources for possible resources listed in prodheaders
+                                value = 0;
+                                if (Ability.additionalResources[Age]) {
+                                    if (Ability.additionalResources[Age].resources[res]) {
+                                        value += Ability.additionalResources[Age].resources[res];
+                                    }
                                 }
-                                var Ability2 = Building.json.abilities[AbilityIndex.AddResourcesWhenMotivatedAbility];
+                                if (Ability.additionalResources.AllAge) {
+                                    if (Ability.additionalResources.AllAge.resources[res]) {
+                                        value += Ability.additionalResources.AllAge.resources[res];
+                                    }
+                                }
+                                if (categoryGoods.includes(res)) { //when resource is goods, goods are tallied
+                                    goods += value;
+                                } else {
+                                    if (res == "Goods_Sum") value = goods; //occurence of Goods_sum triggers the addition of goods to the array
+                                    if (value) {
+                                        AgeData.push(numberWithCommas(value));
+                                        if (createHeader) {
+                                            Building.header.push(prodHeaders[res])
+                                        }
+                                    }
+                                }
                             }
+                            break;
+                        case "AddResourcesWhenMotivatedAbility":
 
                             for (let res in prodHeaders) {//test the resources for possible resources listed in prodheaders
                                 value = 0;
@@ -153,18 +171,7 @@ function convertOld(Building) {
                                         value += Ability.additionalResources.AllAge.resources[res];
                                     }
                                 }
-                                if (bothAddRes) {
-                                    if (Ability2.additionalResources[Age]) {
-                                        if (Ability2.additionalResources[Age].resources[res]) {
-                                            value += Ability2.additionalResources[Age].resources[res];
-                                        }
-                                    }
-                                    if (Ability2.additionalResources.AllAge) {
-                                        if (Ability2.additionalResources.AllAge.resources[res]) {
-                                            value += Ability2.additionalResources.AllAge.resources[res];
-                                        }
-                                    }
-                                }
+
                                 if (categoryGoods.includes(res)) { //when resource is goods, goods are tallied
                                     goods += value;
                                 } else {
@@ -172,7 +179,7 @@ function convertOld(Building) {
                                     if (value) {
                                         AgeData.push(numberWithCommas(value));
                                         if (createHeader) {
-                                            Building.header.push(prodHeaders[res])
+                                            Building.header.push(headerExtra.mot + prodHeaders[res])
                                         }
                                     }
                                 }
