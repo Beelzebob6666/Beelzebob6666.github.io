@@ -65,7 +65,7 @@ function createSelectOption(i, row, shouldFilterForType, typeToFilterFor, onlySp
     if (row.components) {
         typeOfRow = row.components.AllAge.tags.tags[0].buildingType;
         if (row.components.AllAge?.era?.era) ageOfRow = row.components.AllAge.era.era;
-        is_specialOfRow = row.components.AllAge.value.rarity="epic";
+        is_specialOfRow = row.components.AllAge.value.rarity==="epic";
     } else {
         if (row.requirements && row.requirements.min_era) {
             ageOfRow = row.requirements.min_era;
