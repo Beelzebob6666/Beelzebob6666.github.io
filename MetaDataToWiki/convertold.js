@@ -18,11 +18,13 @@ function convertOld(Building) {
     if (Building.json.abilities) {
 
         for (let ability in Building.json.abilities) {
-            if (Building.json.abilities[ability].__class__ === "DoubleProductionWhenMotivatedAbility") {
+            let a = Building.json.abilities[ability].__class__
+            if (a === "DoubleProductionWhenMotivatedAbility") {
                 DP = true;
                 continue;
             }
-            AbilityIndex[Building.json.abilities[ability].__class__] = ability;
+            if (!AbilityIndex[a]) continue;
+            AbilityIndex[a] = ability;
         }
     }
 
@@ -83,7 +85,7 @@ function convertOld(Building) {
                                 AgeData.push(hapeff)
                             }
                             if (createHeader) {
-                                Building.header.push(prodHeaders.provided_happiness);
+                                Building.header.push(((Building.json.type == "culture" || Building.json.type == "decoration") ? headerExtra.DP : "") + prodHeaders.provided_happiness);
                                 if (Building.size != 1) {
                                     Building.header.push(prodHeaders.hapeff);
                                 }
@@ -116,7 +118,7 @@ function convertOld(Building) {
                             let Prod = Level.production_values[prod];
                             AgeData.push(numberWithCommas(Prod.value));
                             if (createHeader) {
-                                Building.header.push(headerExtra["Prod " + prod] + prodHeaders[Prod["type"]]);
+                                Building.header.push((DP ? headerExtra.DP : "") + headerExtra["Prod " + prod] + prodHeaders[Prod["type"]]);
                             }
                         }
                     }
