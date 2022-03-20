@@ -190,13 +190,13 @@ function convertOld(Building) {
                         case "RandomUnitOfAgeWhenMotivatedAbility":
                             AgeData.push(numberWithCommas(Ability.amount));
                             if (createHeader) {
-                                Building.header.push(prodHeaders["Unit-Production"])
+                                Building.header.push(headerExtra.mot + prodHeaders["Unit-Production"])
                             }
                             break;
                         case "RandomBlueprintWhenMotivatedAbility":
                             AgeData.push(1);
                             if (createHeader) {
-                                Building.header.push(prodHeaders["BP-Production"])
+                                Building.header.push(headerExtra.mot + prodHeaders["BP-Production"])
                             }
                             break;
                         case "AddResourcesToGuildTreasuryAbility":
