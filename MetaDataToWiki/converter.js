@@ -124,6 +124,15 @@ $("#Buildings").change(function () {
     document.execCommand('copy');
     $(this).focus();
     AllowFocusLost = false;
+    let t=Building.json.name + "";
+    let re= new RegExp(" \- Lv\. [0-9]*")
+    console.log(t);
+    t = t.replace(re, "");
+    re= new RegExp("Lv\. [0-9]* \- ")
+    t = t.replace(re, "");
+    let url=`https://forgeofempires.fandom.com/wiki/${t}?veaction=editsource`;
+    if ($('#OpenWiki')[0].checked) window.open(url,'_blank');
+    $('#WikiLink')[0].href = url;
 });
 
 $("#Buildings").focusout(function () {
