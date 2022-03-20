@@ -59,18 +59,23 @@ async function getData() {
 }
 
 function createSelectOption(i, row, shouldFilterForType, typeToFilterFor, onlySpecial, shouldFilterForAge, ageToFilterFor) {
-    let typeOfRow = row.type;
-    const test = row.components;
-    if (test) {
-        typeOfRow = row.components.AllAge.tags.tags[0].buildingType
-    }
+    let typeOfRow = '';
     let ageOfRow = 'none';
-    if (row.requirements && row.requirements.min_era) {
-        ageOfRow = row.requirements.min_era;
+    
+    if (row.components) {
+        typeOfRow = row.components.AllAge.tags.tags[0].buildingType;
+        if (row.components.AllAge?.era?.era) ageOfRow = row.components.AllAge.era.era;
+        is_specialOfRow = row.components.AllAge.value.rarity="epic";
+    } else {
+        if (row.requirements && row.requirements.min_era) {
+            ageOfRow = row.requirements.min_era;
+        }
+        is_specialOfRow = row.is_special;
+        typeOfRow = row.type;
     }
-
+    
     const buildingTypeMatches = ((shouldFilterForType && (typeOfRow === typeToFilterFor)) || !(shouldFilterForType))
-    const specialMatches = (((onlySpecial) && (row.is_special)) || !(onlySpecial))
+    const specialMatches = (((onlySpecial) && (is_specialOfRow)) || !(onlySpecial))
     const AgeMatches = ((shouldFilterForAge && (ageOfRow === ageToFilterFor)) || !(shouldFilterForAge))
 
     if (buildingTypeMatches && specialMatches && AgeMatches) {
