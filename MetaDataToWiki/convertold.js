@@ -13,6 +13,7 @@ function convertOld(Building) {
         value,
         type,
         DP = false;
+        pol = false;
 
     //check which abilities are included
     if (Building.json.abilities) {
@@ -21,6 +22,10 @@ function convertOld(Building) {
             let a = Building.json.abilities[ability].__class__
             if (a === "DoubleProductionWhenMotivatedAbility") {
                 DP = true;
+                continue;
+            }
+            if (a === "PolishableAbility") {
+                pol = true;
                 continue;
             }
             if (!AbilityIndex[a]) continue;
@@ -85,7 +90,7 @@ function convertOld(Building) {
                                 AgeData.push(hapeff)
                             }
                             if (createHeader) {
-                                Building.header.push((((Building.json.type == "culture" || Building.json.type == "decoration") && DP) ? headerExtra.DP : "") + prodHeaders.provided_happiness);
+                                Building.header.push((((Building.json.type == "culture" || Building.json.type == "decoration") && pol) ? headerExtra.DP : "") + prodHeaders.provided_happiness);
                                 if (Building.size != 1) {
                                     Building.header.push(prodHeaders.hapeff);
                                 }
