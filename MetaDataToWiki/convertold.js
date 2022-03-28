@@ -85,7 +85,7 @@ function convertOld(Building) {
                                 AgeData.push(hapeff)
                             }
                             if (createHeader) {
-                                Building.header.push(((Building.json.type == "culture" || Building.json.type == "decoration") ? headerExtra.DP : "") + prodHeaders.provided_happiness);
+                                Building.header.push((((Building.json.type == "culture" || Building.json.type == "decoration") && DP) ? headerExtra.DP : "") + prodHeaders.provided_happiness);
                                 if (Building.size != 1) {
                                     Building.header.push(prodHeaders.hapeff);
                                 }
