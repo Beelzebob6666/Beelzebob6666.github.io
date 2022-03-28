@@ -12,7 +12,7 @@ function convertOld(Building) {
     var p = "",
         value,
         type,
-        DP = false;
+        DP = false,
         pol = false;
 
     //check which abilities are included
