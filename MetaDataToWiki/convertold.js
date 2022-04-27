@@ -382,7 +382,19 @@ function convertOld(Building) {
                                             Building.header.push(Reward.drop_chance + "% for<br>" + prodHeaders["BP-Production"]);
                                         }
                                         break;
-
+                                    case "good":
+                                        AgeData.push(numberWithCommas(Reward.reward.totalAmount));
+                                        if (createHeader) {
+                                            Building.header.push(Reward.drop_chance + "% for<br>" + prodHeaders["good"]);
+                                        }
+                                        break;
+                                    case "guild_goods":
+                                        AgeData.push(numberWithCommas(Reward.reward.totalAmount));
+                                        if (createHeader) {
+                                            Building.header.push(Reward.drop_chance + "% for<br>" + prodHeaders["clan_goods"]);
+                                        }
+                                        break;
+        
                                 }
                             }
                             break;
