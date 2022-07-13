@@ -85,6 +85,7 @@ const prodHeaders = {                       //translates production options to w
     "def_boost_attacker": "{{ADEF}}",
     "coin_production": "{{CoinBoost}}",
     "supply_production": "{{SupplyBoost}}",
+    "forge_points_production":"{{FPBoost}}",
  
 }
 
@@ -119,6 +120,7 @@ const categoryBoosts = [
     "def_boost_attacker",
     "coin_production",
     "supply_production",
+    "forge_points_production"
 ]
 
 const multiageWiki = {
