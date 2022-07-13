@@ -85,6 +85,7 @@ const prodHeaders = {                       //translates production options to w
     "def_boost_attacker": "{{ADEF}}",
     "coin_production": "{{CoinBoost}}",
     "supply_production": "{{SupplyBoost}}",
+    "forge_points_production":"{{FPBoost}}",
  
 }
 
@@ -119,6 +120,7 @@ const categoryBoosts = [
     "def_boost_attacker",
     "coin_production",
     "supply_production",
+    "forge_points_production"
 ]
 
 const multiageWiki = {
@@ -127,11 +129,13 @@ const multiageWiki = {
     "styleRow" : '!  style="width:70px;" | ',
 }
 
-const specialProducts = {   // Reward strings - removed " of ", made "Fragments" singular, removed lading numbers, removed spaces
+const specialProducts = {   // Reward strings - removed " of ", made "Fragments" singular, removed leading numbers, removed spaces
     "FragmentOneUpKit": "[[File:OneUpKitFragment.png|20px|link=Fragments|Fragment of One Up Kit]]",
     "FragmentMassSelf-AidKit": "[[File:MassSelfAidFragment.png|20px|link=Fragments|Fragment of Mass Self Aid Kit]]",
     "Fragment30mMassSupplyRush": "[[File:MassSupplyRushFragment.png|20px|link=Fragment|Fragment of 30min Mass Supply Rush]]",
-    "Fragment20%AttackerBoost": "[[File:LargeAttackBoostFragment.png|20px|link=Fragment|Fragment Large Attack Boost]]"
+    "Fragment20%AttackerBoost": "[[File:LargeAttackBoostFragment.png|20px|link=Fragment|Fragment Large Attack Boost]]",
+    "Deadman'sBounty": "[[File:Reward_icon_dead_man_stash.png|20px|link=|Deadman's Bounty]]",
+    "Buccaneer'sBounty": "[[File:Reward_icon_buccaneer.png|20px|link=|Buccaneer's Bounty]]",
 }
 
 const NewProductions = {                  // determines order of productions in convertNew        
