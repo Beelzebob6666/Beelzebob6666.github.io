@@ -26,7 +26,7 @@ function convertNew() {
             }
             //population
             try {
-                let pop = AgeJson.staticResources.resources.resources.population;
+                let pop = AgeJson.staticResources?.resources?.resources?.population;
                 if (pop) {
                     
                     if (pop > 0) {
@@ -90,7 +90,7 @@ function convertNew() {
                                 break;
                             case "genericReward":
                                 let lookupJson = AgeJson.lookup.rewards[ProdJson[i].reward.id];
-                                productionSpecial.push([ProdJson[i].onlyWhenMotivated, lookupJson.name, lookupJson.amount])
+                                productionSpecial.push([ProdJson[i].onlyWhenMotivated, lookupJson.name, lookupJson.amount || 1])
                                 break;
                             case "random":
                                 for (let r in ProdJson[i].products) {
