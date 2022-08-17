@@ -136,6 +136,7 @@ const specialProducts = {   // Reward strings - removed " of ", made "Fragments"
     "Fragment20%AttackerBoost": "[[File:LargeAttackBoostFragment.png|20px|link=Fragment|Fragment Large Attack Boost]]",
     "Deadman'sBounty": "[[File:Reward_icon_dead_man_stash.png|20px|link=|Deadman's Bounty]]",
     "Buccaneer'sBounty": "[[File:Reward_icon_buccaneer.png|20px|link=|Buccaneer's Bounty]]",
+    "RandomUnitChest": "{{IMU}}",
 }
 
 const NewProductions = {                  // determines order of productions in convertNew        
