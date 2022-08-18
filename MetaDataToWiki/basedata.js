@@ -129,7 +129,7 @@ const multiageWiki = {
     "styleRow" : '!  style="width:70px;" | ',
 }
 
-const specialProducts = {   // Reward strings - removed " of ", made "Fragments" singular, removed leading numbers, removed spaces
+const specialProducts = {   // Reward strings - removed " of ", removed "+", made "Fragments" singular, removed leading numbers, removed spaces
     "FragmentOneUpKit": "[[File:OneUpKitFragment.png|20px|link=Fragments|Fragment of One Up Kit]]",
     "FragmentMassSelf-AidKit": "[[File:MassSelfAidFragment.png|20px|link=Fragments|Fragment of Mass Self Aid Kit]]",
     "Fragment30mMassSupplyRush": "[[File:MassSupplyRushFragment.png|20px|link=Fragment|Fragment of 30min Mass Supply Rush]]",
@@ -137,6 +137,7 @@ const specialProducts = {   // Reward strings - removed " of ", made "Fragments"
     "Deadman'sBounty": "[[File:Reward_icon_dead_man_stash.png|20px|link=|Deadman's Bounty]]",
     "Buccaneer'sBounty": "[[File:Reward_icon_buccaneer.png|20px|link=|Buccaneer's Bounty]]",
     "RandomUnitChest": "{{IMU}}",
+    "RandomUnit": "{{IMU}}",
 }
 
 const NewProductions = {                  // determines order of productions in convertNew        
