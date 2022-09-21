@@ -70,6 +70,7 @@ const prodHeaders = {                       //translates production options to w
                                         //and defines the position of gooods in the resulting table
                                         //Goods_Sum may not occur in the categoryGoods variable below!!!
     "all_goods_of_previous_age": "{{PEGoods}}",
+    "random_good_of_previous_age": "{{PEGoods}}",
     "strategy_points": "{{FP}}",
     "points": "{{Prestige}}",
     "premium": "{{IDIA}}",
@@ -133,6 +134,7 @@ const specialProducts = {   // Reward strings - removed " of ", removed "+", mad
     "FragmentOneUpKit": "[[File:OneUpKitFragment.png|20px|link=Fragments|Fragment of One Up Kit]]",
     "FragmentMassSelf-AidKit": "[[File:MassSelfAidFragment.png|20px|link=Fragments|Fragment of Mass Self Aid Kit]]",
     "Fragment30mMassSupplyRush": "[[File:MassSupplyRushFragment.png|20px|link=Fragment|Fragment of 30min Mass Supply Rush]]",
+    "FragmentFinishAllSupplyProductions": "[[File:LargeMassSupplyRushFragment.png|20px|link=Fragment|Fragment of Finish All Productions Rush]]",
     "Fragment20%AttackerBoost": "[[File:LargeAttackBoostFragment.png|20px|link=Fragment|Fragment Large Attack Boost]]",
     "Deadman'sBounty": "[[File:Reward_icon_dead_man_stash.png|20px|link=|Deadman's Bounty]]",
     "Buccaneer'sBounty": "[[File:Reward_icon_buccaneer.png|20px|link=|Buccaneer's Bounty]]",
@@ -146,6 +148,7 @@ const NewProductions = {                  // determines order of productions in 
     "medals": 0,
     "goods": 0,
     "all_goods_of_previous_age": 0,
+    "random_good_of_previous_age":0,
     "strategy_points":0,
     "premium":0,
     "clan_power" :0,
