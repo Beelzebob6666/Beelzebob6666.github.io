@@ -90,13 +90,13 @@ function convertNew() {
                                 break;
                             case "genericReward":
                                 let lookupJson = AgeJson.lookup.rewards[ProdJson[i].reward.id];
-                                productionSpecial.push([ProdJson[i].onlyWhenMotivated, lookupJson.name, getAmount(lookupJson.name,lookupJson.amount)])
+                                productionSpecial.push([ProdJson[i].onlyWhenMotivated, lookupJson.id, getAmount(lookupJson.name,lookupJson.amount)])
                                 break;
                             case "random":
                                 for (let r in ProdJson[i].products) {
                                     let randomProd = ProdJson[i].products[r];
                                     let lookupJson = AgeJson.lookup.rewards[randomProd.product.reward.id];
-                                    productionRandom.push([ProdJson[i].onlyWhenMotivated, lookupJson.name, getAmount(lookupJson.name,lookupJson.amount), Math.floor(randomProd.dropChance*1000)/10 + "%"]);
+                                    productionRandom.push([ProdJson[i].onlyWhenMotivated, lookupJson.id, getAmount(lookupJson.name,lookupJson.amount), Math.floor(randomProd.dropChance*1000)/10 + "%"]);
                                     console.log(productionRandom);
                                 }
                                 break;
@@ -170,8 +170,11 @@ function convertNew() {
             Building.AgeData.push(AgeData);
 
             //create table Header only with first age passed
+            //old..... 
             createHeader = false
         }
+        // new header creation:
+
     }
 }
 
@@ -187,11 +190,7 @@ function getResources(products, Productions, goodsDefault) {
 }
 
 function getSpecial(SpecialString) {
-    y = SpecialString.replace(" of ", ""); //remove " of "
-    y = y.replace("Fragments", "Fragment");//remove Fragment plural s
-    y = y.replaceAll("+","");//remove (leading) +
-    y = y.replace(/\d+? (.*?)/,"$1");//remove leading numbers
-    y = y.replaceAll(" ","");//remove spaces
+    y = y.replace(/#\d+?/,"");//remove amount
     x = specialProducts[y];
     if (!x) x = SpecialString;
 
@@ -202,6 +201,7 @@ function getAmount(SpecialString, amount) {
     if (amount) return amount;
     y = SpecialString.replaceAll("+","");//remove (leading) +
     y = y.replace(/(\d+).*/,"$1");//return leading numbers
+    //y=y.replace(/.*?#(\d+?)/,"$1")
     if (isNaN(+y)) return 1;
     return +y;
     
