@@ -84,6 +84,8 @@ const prodHeaders = {                       //translates production options to w
     "def_boost_defender": "{{DEF}}",
     "att_boost_defender": "{{DATT}}",
     "def_boost_attacker": "{{ADEF}}",
+    "att_def_boost_defender": "{{DEB}}",
+    "att_def_boost_attacker":"{{ATB}}",
     "coin_production": "{{CoinBoost}}",
     "supply_production": "{{SupplyBoost}}",
     "forge_points_production":"{{FPBoost}}",
@@ -119,6 +121,8 @@ const categoryBoosts = [
     "def_boost_defender",
     "att_boost_defender",
     "def_boost_attacker",
+    "att_def_boost_defender",
+    "att_def_boost_attacker",
     "coin_production",
     "supply_production",
     "forge_points_production"
@@ -145,6 +149,9 @@ const specialProducts = {   // Reward strings - removed " of ", removed "+", mad
 }
 
 const NewProductions = {                  // determines order of productions in convertNew        
+    //"provided_population":0,
+    //"provided_happiness":0,
+    //"hapeff": 0,
     "money": 0,
     "supplies": 0,
     "medals": 0,
