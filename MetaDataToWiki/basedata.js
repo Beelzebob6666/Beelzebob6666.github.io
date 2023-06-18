@@ -21,6 +21,7 @@ const ages = {
     "SpaceAgeAsteroidBelt": "'''SAAB'''",
     "SpaceAgeVenus": "'''SAV'''",
     "SpaceAgeJupiterMoon": "'''SAJM'''",
+    "SpaceAgeTitan": "'''SAT'''",
 }
 
 const headerExtra = {
